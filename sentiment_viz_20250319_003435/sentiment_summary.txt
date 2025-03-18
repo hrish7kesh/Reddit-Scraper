@@ -1,0 +1,12 @@
+Reddit Comment Sentiment Analysis Summary
+=======================================
+
+Total comments analyzed: 387
+Positive comments: 231 (59.7%)
+Neutral comments: 88 (22.7%)
+Negative comments: 68 (17.6%)
+
+Average sentiment score: 0.2744
+Median sentiment score: 0.2732
+Minimum sentiment score: -0.9609
+Maximum sentiment score: 0.9937

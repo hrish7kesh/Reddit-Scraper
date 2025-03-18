@@ -1,0 +1,1974 @@
+post_id,comment,sentiment_score,sentiment_category,sentiment_pos,sentiment_neg,sentiment_neu
+1jczjvz,Looking to learn Python to learn backtesting and algo trading. Any good resources/advice anyone can share? Thanks,0.7906,Positive,0.364,0.0,0.636
+1jczjvz,"What's the modern way to access rendered web pages with Python? I'm working on a project that uses selenium webdriver, and it works, but I wonder if there are other alternatives out there, preferably ones that don't require having Chrome installed. I heard playwright can be used for this sort of thing?",0.0,Neutral,0.0,0.0,1.0
+1jczjvz,i need help to use ai in python,0.4019,Positive,0.31,0.0,0.69
+1jeapm0,"There is a fundamental difference between if - if and if - elif:
+When you chain if statements, python will check every if statements, no matter what is the outcome of the previous one. 
+With if-elif, the elif statement is evaluated ONLY if the first if statement evaluates to False. 
+Elif literally mean else if, so if the IF statements evaluates to true, python will ignore the elif statements.
+
+If you chain elif statements, same story. The outcome of the first if determines if the rest of the conditions are checked or not.",-0.2023,Negative,0.041,0.05,0.909
+1jeapm0,"Elif is generally better as it will only check the next conditions if the previous if was false, else it should just skip it",0.4404,Positive,0.112,0.0,0.888
+1jeapm0,"Ppl have answered about the if elif 
+
+But you mention that you have ordered them by computational complexity. You may want to also consider based on likelihood. 
+
+It can be less expensive if you do a highly likely but costly test first rather than doing several less costly and working your way up.",-0.3697,Negative,0.027,0.073,0.9
+1jeapm0,"If-elif-elif when the conditions partition the behavior cleanly.
+
+If-chains when subsequent actions may be needed on the results of the previous condition.
+
+Nested-if when there are distinct sub conditions. But use this sparingly.
+
+For performance reasons it's often a good strategy to do a cheap check to partition the behavior so that the expensive checks are not done on all the data.",0.5927,Positive,0.061,0.0,0.939
+1jeapm0,"The answer is either; it doesn't matter or use if-elif-elif.
+
+The reason for it doesn't matter: if your code looks like this:
+```
+if condition1:
+    return False
+if condition2:
+    return False
+...
+return True
+```
+Then the `return` statement will prevent evaluation of the following conditions.
+
+Otherwise if you are not returning or breaking out of the loop, you should use if-elif-elif, otherwise every conditional statement that evaluates to true will have its clause executed. 
+
+Some food for thought -- you want your conditionals to be ordered by *likelihood of execution* in the best case scenario. That means if condition 1 is computationally heavy, but is also the executed case 90% of the time, it should be first in your conditional chain. That way 90% of the time, it's the only case executed instead of ""every less computationally heavy case, then this case"" being executed.
+
+You may not know which case will be the most executed, so your ordering would make sense as an initial release - then tracking which gets executed the most, to make a future performance commit.",0.8433,Positive,0.072,0.011,0.917
+1jeapm0,If elif elif allows you to stop immediately if the condition is true at an early stage. It does not evaluate all if clauses.,0.1531,Positive,0.104,0.081,0.815
+1jeapm0,"one variable can resolve to True in multiple if statements, so these two are not the same and it depends on your intended behavior...
+
+example:
+
+```
+x = int
+
+if x > 8:
+    print(""It is bigger than 8"")
+if x > 6:
+    print(""It is bigger than 6"")
+if x > 4:
+    print(""It is bigger than 4"")
+```
+
+if x = 10, this will result in:
+```
+> It is bigger than 8
+> It is bigger than 6
+> It is bigger than 4
+```
+
+now, if you code it like this:
+
+```
+x = int
+
+if x > 8:
+    print(""It is bigger than 8"")
+elif x > 6:
+    print(""It is bigger than 6"")
+elif x > 4:
+    print(""It is bigger than 4"")
+```
+
+if x = 10 it will result in:
+
+```
+> It is bigger than 8
+```
+
+And if x = 7 it will result in:
+
+```
+> It is bigger than 6
+```
+
+So check if your outcomes should be mutually exclusive or not.",0.8126,Positive,0.067,0.0,0.933
+1jeapm0,"The expression after elif is only evaluated if the preceeding (el)if expression was falsy.
+
+With a sequence of if statements it depends. Are they nested or on the same level? If they are at the same level, every one of them will be checked, unless of course there are other control statements inside those if suits like `return` or `break`.",0.3612,Positive,0.041,0.0,0.959
+1jeapm0,"I'm a bit of an idiot, sorry. What is meant by ""computationally expensive""?",-0.5574,Negative,0.0,0.315,0.685
+1jeapm0,"is the computationally expensive calculation the same in each if/elif, but just checking for different values?  
+If so, either calculate it before the first if, or use the walrus := to capture it so you don't have to do it again:
+
+    if (calc_res := 1 + 2 + 3) == 7:
+        print('it was 7')
+    elif calc_res == 5:
+        print('it was 5')
+    else:
+        print(f'it was {calc_res}')",0.5499,Positive,0.056,0.0,0.944
+1jeapm0,"odd one out here i guess, try match case
+
+    for val in calculations:
+      match (val):
+        case <val1>:
+          <do the thing>
+        case <val2>:
+          <do a different thing>
+        ...
+        case _:
+          <default action>",-0.3182,Negative,0.0,0.076,0.924
+1jeapm0,"To throw in my 2cts, I always prefer to put this in a separate function and then do if return, if return, in my mind that makes the code easier to understand no matter, you can then also do things like @lru_cache if possible! The order for ifs, indeed a mix of expense and likelihood as other people have noted",0.5411,Positive,0.108,0.036,0.856
+1jeapm0,"one variable can conform to True in multiple if statements, so these two are not the same and it depends on your intended behavior...
+
+example:
+
+```
+x = int
+
+if x > 8:
+    print(""It is bigger than 8"")
+if x > 6:
+    print(""It is bigger than 6"")
+if x > 4:
+    print(""It is bigger than 4"")
+```
+
+if x = 10, this will result in:
+```
+> It is bigger than 8
+> It is bigger than 6
+> It is bigger than 4
+```
+
+now, if you code it like this:
+
+```
+x = int
+
+if x > 8:
+    print(""It is bigger than 8"")
+elif x > 6:
+    print(""It is bigger than 6"")
+elif x > 4:
+    print(""It is bigger than 4"")
+```
+
+if x = 10 it will result in:
+
+```
+It is bigger than 8
+```
+
+And if x = 7 it will result in:
+
+```
+It is bigger than 6
+```
+
+So check if your outcomes should be mutually exclusive or not.",0.7003,Positive,0.049,0.0,0.951
+1je2zuu,"Ditch the AI, I think you’re trying to move too fast without learning the basics. This is a very common post here.  
+
+If I write something, I may take 50 lines to write it initially, with extra print statements to help me debug it. If I clean it all up once I have it working, my solution may then be as long as the AI version, but I’ve learned how and why the code works, and probably learned a lot that will make me better for next time. Shortcutting my learning process is just hurting me.",0.5647,Positive,0.095,0.037,0.868
+1je2zuu,"""But I can’t write too much python by hand and make full apps completely from scratch without AI to learn more.""
+
+**So stop using AI.** If you forget something then look it up in the docs, you don't need to remember everything. You are your best teacher. Code and actually deal with problems on your own.
+
+For more resources Harvard CS50, MOOC - University of Helsinki course and I have a [Python and Data Science](https://www.udemy.com/course/python-foundations-for-data-science-from-zero-to-data-analy/?couponCode=FEB2025-PYTHON) course that starts from scratch are all amazing. However if you don't actually do the homework on your own and let ChatGPT do the work for you then you will not progress.",0.7651,Positive,0.124,0.095,0.781
+1je2zuu,"If you are fogetting things, then you are moving too fast.
+
+Everytime you learn something important like functions, loops, class and etc. you should build a project around that topic to fully understand and at least im print the important parts of that topic.
+
+Document what you have learnt every single step of the way, on google doc or other note apps, then you can simply use the search function and search when you forget or get stuck",0.296,Positive,0.074,0.048,0.878
+1je2zuu,"You should be focused on what you need to do and not hung up on remembering every bit of code you’ve written before. People will tell you over and over that it’s impossible to remember everything. Look up the documentation if you don’t remember.
+
+Most importantly, you need to start building your own projects. Come up with a problem you want to solve, map/draw it out broken down into steps, write code to complete each step.",0.1263,Positive,0.1,0.07,0.83
+1je2zuu,"First step is to stop using AI. Think of Gen AI like power tools. In the hands of a skilled craftsman, power tools can really reduce their workload and help them to create great things faster. In the hands of a novice without fundamentals, they can really help the novice lose a few fingers. AI is great for me because it can take care of a lot of the boring part of the job for me. That’s fine in my case though because I already know how to do the boring part of the job and I’m just outsourcing it.
+
+What does doing a project look like to you? When you do projects from “automate the boring stuff” do you sit down and try to understand what you’ve written/copied or do you simply mark the project as done in your head and move on?",0.9356,Positive,0.161,0.073,0.766
+1je2zuu,Stop using AI and just do the coding exercises on your own. If you keep using it as a crutch you're never gonna develop the fundamental understanding of coding you need to figure things out logically.,-0.296,Negative,0.0,0.061,0.939
+1je2zuu,"Turn off the AI, find a project  you want to make that is complex enough, e.g. a social media website, then start working on that project. It will be bad, but you will iterate on it and learn how to do things by stucking at difficult issues.",-0.6542,Negative,0.024,0.113,0.863
+1je2zuu,"Don't use AI to learn Python. It spits out code of dubious quality and you don't know yet if it is any good or not. Make a small project: hangman in the terminal. Expand from there. DO NOT use AI/LLM unless you are truly stuck for an hour and tried multiple things. Take a walk, try again.",0.5574,Positive,0.129,0.072,0.799
+1je2zuu,I learned a lot from watching The Coding Train on Youtube. Trying to port his javascript code over to Python.,0.0,Neutral,0.0,0.0,1.0
+1je2zuu,"Is it perhaps more of a problem solving/solution design issue than a coding issue? Are you thinking through what you have to do in terms of inputs and outputs, and decomposing the problem onto different parts that make it easier to approach? 
+
+It can feel very intimidating to tackle big problems, but if you sit down, draw a flowchart or a diagram to picture it and divide it into smaller, less intimidating chunks, it's going to be easier to figure out what to do next, it narrows down what to search for if there's something you don't know how to do, and it makes you a better solution designer overall.",0.3707,Positive,0.105,0.101,0.794
+1je2zuu,Start small and simple then build. Repetition.,0.0,Neutral,0.0,0.0,1.0
+1je2zuu,"Im the same. I’m making scripts and I can read them debug the code. But doing from 0 is hard. You can tell me to read the python documentation but for example the docs for imaplib are horrible, a third party can make a better job than the python docs at explaining something. And maybe the problem is the people just looking up things in the python docs and AI. Start looking in stack overflow. Code examples, explanations",-0.3612,Negative,0.086,0.115,0.8
+1je2zuu,"I agree with the ditch the AI suggestion, here is how:  
+Work with a relatively lesser known series of project packages OR something somewhat new with good documentation but hasn't been trained into any AI's.  
+Anything you've come across (pyside6, Vector databases for me) which AI routinely gets wrong is a great place to self-sabotage your inner vibe-coder/AI shortcutting.
+
+Ironically enough I learned the most by writing my own AI instancing & API handling software with chain of thought, NLP, and vector based memories - it was a tremendous project and an AI was only useful to the point of asking philosophical questions about structuring. I was knee deep in documentation all day for hours on end before i realized. It was a project I was enthusiastic about enough to not care about a lack of shortcuts and it offered many small victories.",0.9046,Positive,0.132,0.05,0.818
+1je2zuu,"Stop using AI to learn. You need a foundation first to learn honestly, and one of the things about coding is that in order to get good at it, you have to start making your own mistakes and spend time figuring out why you made your mistakes (this could be doing your own research). AI is too quick to give you responses about what is the correct answer and you'll gloss over the intricacies and just copy and paste the right solution.",0.25,Positive,0.091,0.08,0.83
+1je2zuu,"one of the worst ways of learning something new from the start is using AI. You will get wrong information that you are unable to discern it from being true or false, and you will learn how to use the ai to do X stuff, but you wont learn how to do X stuff yourself..
+
+
+And there is a huge difference.
+
+
+Ditch the AI and relearn everything from scratch, yourself alone. There's no other way",-0.6187,Negative,0.06,0.123,0.817
+1je2zuu,"That looks like a symptom of passive learning. I’d reflect on how many decisions you had to make from idea to implementation. If most of the decisions are already made by AI, there’s the issue.
+
+If you are working on Automate the Boring Stuff in Python, try to add new features on the existing code without adding additional 3rd party libraries. That will test your true understanding of the codebase.",0.7579,Positive,0.129,0.03,0.841
+1je2zuu,Hackerrank.com is your best friend,0.8126,Positive,0.712,0.0,0.288
+1je2zuu,You need to enjoy Python if you want to learn it. AI stuff is too difficult for a starter. Just build a simple web site or a simple card game works on terminal. After you see visual results you will start to enjoy the process and you can advance in Python.,0.6369,Positive,0.142,0.046,0.812
+1je2zuu,"The reason you’re not remembering is because you’re using AI,
+
+You’re using it as a crutch.
+
+When learning, you shouldn’t be using AI to write code for you, and you should never be copy and pasting.
+
+You need to physically write all the code yourself.",0.0,Neutral,0.0,0.0,1.0
+1je2zuu,"Learning - Don't use AI to write for you. Use it as a dictionary to look up definitions/terms. Not as a freelance author that write for you.
+
+Using when you are pro - Up to you",-0.2235,Negative,0.0,0.057,0.943
+1je2zuu,“several months” lol there’s your problem. it takes a long time to be productive autonomously,0.0258,Neutral,0.16,0.154,0.686
+1je2zuu,"Stop using AI. You need to write more code. Break your task down into smaller bits then complete each bit. If you can’t remember how to do something or you forget syntax, it’s ok to look it up in the documentation. Nobody remembers everything.
+
+If it’s an app you’re writing, start small. First just get a basic window up with a single button or whatever that doesn’t do anything. And check this works. Fix any bugs. Then add some basic logic for that button, then check this works. Then add a little more functionality, then check it works. Rinse and repeat. Do not write the entire logic all in one go before you check it works. Keep a copy of a previous version in case you mess up (or better yet, use version control such as git).
+
+Make sure you write code that is *readable*. This will save your life as you write code because it avoid confusing yourself. If you litter you code with variable names such as “a” and “v1”, you will just confuse yourself. Instead write variable names like “car” or “person” or whatever. Divide long pieces of code into functions. Keep the top level code simple to read and put nitty gritty details inside functions. If your logic is complicated, you can even start by writing the logic using functions you haven’t defined yet. This process forces you to think about the problem and what you need.",0.1531,Positive,0.059,0.06,0.881
+1je2zuu,"Your brain learns by the struggle of doing. Using AI bypasses the bits you’d learn from. Do it the hard way. He’ll, do it wrong, and ask others to help you understand how to do it better. I’ve written entire modules I learned later could be done much more easily- or could be entirely replaced by standard libraries. But doing that work is how I learned.",0.1893,Positive,0.082,0.071,0.846
+1je2zuu,"Stop using AI. 
+
+Also, I'll let you in on a secret, but don't tell anyone - we forget most of the things we learn. I can never remember if it's `.index` or `.find`, or which one raises an exception and which one fails gracefully. I also can't remember if you can do `dict + dict`, or if it is `dict | dict`, or maybe`dict.extend(dict)`?
+
+Memorizing is never the point. You get experience from running into problems and solving them, so that the next time you run into the same problem you take less time figuring out what to do. If your solution is AI, then you're not gaining any experience.",-0.7268,Negative,0.086,0.144,0.77
+1je2zuu,"> and can understand AI’s writing of python if i do use it for anything. 
+
+
+STOP USING AI
+
+FIGURE STUFF OUT ON YOUR OWN",-0.4466,Negative,0.0,0.123,0.877
+1je2zuu,Reading code is a secondary skill to googling.,0.0,Neutral,0.0,0.0,1.0
+1je2zuu,Why people think they can write full things with only a few months? did we lower the back for programmers? did things advance so rapidly I missed something?,-0.6391,Negative,0.0,0.179,0.821
+1je2zuu,"I would recommend books like Clean Code or [Architecture Patterns with Python](https://www.cosmicpython.com/).  It sounds like your problem is less Python syntax and more 'Now that I know how to handle the pieces, how do I put them all together?'  And that's a much bigger question with a lot more work to be done to understand design patterns, architecture philosophies, etc.  
+
+Edit:  Head First Design Patterns is also a good book.  It's written in Java, but you can reason through how to implement the code in Python as you go.  It's a good primer on different design strategies.",0.8422,Positive,0.132,0.019,0.849
+1je2zuu,"Don't use Ai like chatGPT or DeepSeek try using CS50.ai, you will need a github account tho. While chatGPT and DeepSeek generates a code for you, Cs50 won't write you code, but will help with ideas.
+Also what others said.(yeah I'm lazy, my bad)",-0.0657,Negative,0.075,0.101,0.824
+1jebbty,"By default you can only make specific widgets scroll with a scrollbar, such as tree lists, lists, multiple-lines entry boxes and canvas...
+
+One trick to make multiple widgets scrollable is to make a canvas, make it scrollable then put a frame in it, then you can scroll through the widgets within that frame, but it's a little iffy... You also have to use binds for that, instead of just setting the scrollbar as the scroll of the canvas... it's pretty macguyverism, and in the end you're almost programming the scroll effect from zero, but at the end it works...
+
+I wouldn't recommend doing it without some experiencs, and you'll be knocking your head against a hard wall while learning it.",0.2347,Positive,0.036,0.045,0.919
+1jebbty,"Only the Canvas, Entry, Listbox, and Text widgets can be scrolled.  It unreasonable to ask people to search through a lot of code to try and guess where the ""race results are displayed and on the display race history page"" is.  Post some example code that demonstrates what you want to do either here or on pastebin.com (automatically preserves indents).",0.0772,Positive,0.022,0.0,0.978
+1jebbty,"If you are just wanting a scrollable text field that's built into tkinter already. 
+
+    from tkinter.scrolledtext import ScrolledText
+
+You would use it like a normal Text with `insert` and then `see` to set the scroll position. 
+
+    obj.insert(tk.END, data_to_add)
+    obj.see(tk.END)",0.3612,Positive,0.065,0.0,0.935
+1je4c21,"If you goal is to sell vape accessories then surely focus on the commercial aspect? i.e. buy rather than build, get to  market fast and start earning some money. You want to learn python? Do that separately in slower time.",0.5514,Positive,0.107,0.0,0.893
+1je4c21,"Perhaps , you could start coding ?",0.0,Neutral,0.0,0.0,1.0
+1je4c21,"Dude just dont use python for this... You can use so many other languages an frameworks..... react or vue for the front end and express, next, or nuxt for the backend... theres absolutely o reason to use python for such a simple application.",0.0,Neutral,0.0,0.0,1.0
+1je4c21,"""...and further modification is also convenient and simple.""
+
+❤️
+
+This mindset starts early. I’d recommend looking into Domain-Driven Design (DDD). Carefully consider where your business logic will reside—ideally, isolated from external dependencies. Think through your abstractions clearly from the start.
+
+Following these practices will help ensure your code is easy to modify:
+
+* Practice good separation of concerns. Your core business logic should be framework-agnostic and independent.
+* Choose frameworks thoughtfully, and minimize coupling as much as practically possible—though, admittedly, in Python, this can range from difficult to impossible due to the nature of frameworks.
+* Avoid embedding direct database or external service calls (like raw SQL, SQLAlchemy, or Redis) directly within business logic. Instead, abstract these external services behind protocols or interfaces, and implement your concrete classes separately.
+
+Doing this makes your system far easier to adapt and modify in the future.",0.936,Positive,0.147,0.044,0.809
+1je1gwp,"https://docs.python.org/3/tutorial/index.html
+
+Also see the sub wiki: https://www.reddit.com/r/learnpython/s/7cILXsa1Sd, specifically the ""New to Python?"" section.",0.0,Neutral,0.0,0.0,1.0
+1je1gwp,Thanks,0.4404,Positive,1.0,0.0,0.0
+1je1gwp,"Hey there! If you’re totally new to Python, I’d suggest starting with something like **“Automate the Boring Stuff with Python”**—it’s free and really beginner-friendly. Once you’re comfy with the basics, check out resources like **Kaggle** for hands-on machine learning projects. They have free datasets and mini-courses that’ll help you see how Python fits into ML.
+
+If you ever want more structured help or a mentor to guide you (especially once you start diving into machine learning), let me know. Happy to point you to good resources or discuss a plan to level up your skills. Good luck and have fun learning!",0.9844,Positive,0.292,0.019,0.689
+1je1gwp,"Harvard CS50 is free on youtube but a little slow, MOOC - University of Helsinki course is a great text-based course and I also have a [Python and Data Science](https://www.udemy.com/course/python-foundations-for-data-science-from-zero-to-data-analy/?couponCode=FEB2025-PYTHON) course that starts from scratch and assumes no prior knowledge.
+
+These resources should have you covered. Finally I really recommend staying away from ChatGPT when learning or use it sparingly. Code as much as you can, experiment, solve problems and have fun.",0.9151,Positive,0.217,0.076,0.707
+1je5whl,"this doesn't give us much info to work with. Follow the traceback and write some log statements in the code to see where it breaks, or just step through the code using the debugger to find the issue",0.0,Neutral,0.0,0.0,1.0
+1jeb1re," *Yes, you code should be broken into these parts*
+
+**1. Scraping part**
+
+Search;
+
+""How to scrape google/excel spreadsheet in Python""  
+""How to parse and select information from excel/google spreedsheet in Python
+
+You will soon or later come across Pandas for data parsing and processing
+
+""How to parse and read data from google/xlsx spreadsheet using pandas""
+
+""How to select specific data from google/xlsx spreadsheet using pandas""
+
+**2. Making the Discord Bot ( Easiest part )**
+
+Now adjust your bot commands to run the scraping code functions and get the data you want , then sends it to your discord channels ( or webhooks in the channel )  , be careful to messages sizes since there is limitations , I believe the biggest size of text you can have in a discord bot message is within an Embed message, if I'm not wrong!
+
+`\@commands.command()`
+
+`def get_customers(ctx):`
+
+`customers = scrape_and_get_customers_data()`
+
+`await ctx.send(customers)`",-0.6414,Negative,0.054,0.076,0.87
+1jeb1re,"a better syntax to ""I am wanting"" could be ""I want"" to or ""I would like to""",0.6908,Positive,0.34,0.0,0.66
+1je557p,What's the error?,-0.4019,Negative,0.0,0.574,0.426
+1je97zm,"Well... we don't know your knowledge currently so I can't really recommend you any courses. Why do they have to be UK specific? Why not just follow youtube or Udemy tutorials? Pretty hard to recommend you a machine learning course if we don't know your starting point. You might as well start off learning how python works, why python has type inference, and how to write code pythonically as its fairly different from type specific languages.",-0.1633,Negative,0.065,0.085,0.849
+1je96um,Bruh... Thats a subjective question. Just use what you're already more familiar with.,0.0,Neutral,0.0,0.0,1.0
+1jdyh7z,"Hello, I think you are are confusing Papyrus (Bethesda's scripting language for creation engine) with python, even then Papyrus only handles scripting, it is not the game ""engine"". You can make games with python but they are going to have to be 2d. They are not going to be 3d unless you are going to seriously sacrifice graphical fidelity (near doom graphics).With that said here is a good resource for getting started in Python if you are still interested. https://wiki.python.org/moin/BeginnersGuide",0.4404,Positive,0.102,0.08,0.818
+1jdyh7z,"Although I love Python for the things I need to do, I do not recommend that you start with Python for what you want. Skyrim is not built on Python as already mentioned by bluejay526
+
+Since you start from 0, C# is a little bit easier than C++ so I think Unity is a good starting point for you.
+
+Here is the official tutorial.
+
+https://learn.unity.com/
+
+Go through it and with everything you practice, experiment with changing stuff to learn how things really work and when you are done with the course you will be able to make games.",0.8321,Positive,0.109,0.021,0.87
+1jdyh7z,"Take a look at ""The Farmer Was Replaced"" on Steam, it's early access, but it's a game where you basically program a drone in Python, it should serve as a good introduction into what programming is about",0.5927,Positive,0.107,0.0,0.893
+1jdyh7z,"okay quick question to everybody, what is the coolest thing that one can do with code is it something other than making good games? I see games as a way of storytelling where the outcome depends on our actions and perhaps that's story telling at it's best and since the dawn of humanity we all have been seeking some good stories, in this context can anyone please tell me the coolest thing one can do with coding? I am gonna pursue that.",0.9268,Positive,0.164,0.0,0.836
+1jdx2ot,"I would change the game to a class and a while loop instead of using globals and recursion. 
+```
+class Game:
+        def __init__(self):
+            self.boss_health = 100
+            self.mana = 30
+            # Etc... 
+        
+        @property
+        def alive(self) -> bool:
+            return True if self.health > 0 else False
+
+def main():
+    game_board = Game()
+    while game_board.alive:
+        action = input(""Do a thing"")
+        ...
+        # add you round options code
+        # add an option to quit, like in the input add type q to quit the game.
+       if action.lower() == ""q"":
+          print(""Thanks for playing"")
+          break
+    
+```
+
+Also lines like this ```mana = mana + 10``` and be changed to ```mana += 10```",0.7783,Positive,0.083,0.0,0.917
+1jdx2ot,"Breaking your interactions and actions inf to functions. 
+
+
+Form the code, it looks like you are newer to programming so this one might be a ways away. If you can break your characters into objects classes. Yes it will be way more complicated to create your characters/bosses but the heath and other such attributes (and death/victory sequences) can be self contained to the character. This would allow you to focus on your game code a lot more and you can make the game story way longer with out have as much repetitive code on characters.",0.4822,Positive,0.078,0.025,0.897
+1jdx2ot,"First thing I notice is your variables. Rather than declaring them as global variables at the start of your function, it would be better to pass them as arguments. 
+
+Declare what your arguments are when setting up the function:
+``` def load(bossheslth, health, mana, defend) ```
+
+Then, pass those variables to the function when you call it at the bottom:
+
+``` load(bossheslth, health, mana, defend) ```
+
+It would probably also be a good time to learn about splitting your code into separate functions, modules and classes. Especially for something like a game, you would have things look a lot cleaner and more organized when you start splitting up your code by purpose. Having your printed strings in one module and handling user input in another, etc.",0.5945,Positive,0.078,0.041,0.881
+1jdx2ot,"Use functions for attacks, calculating health, calculate mama and win condition.it will be a good practice.",0.5859,Positive,0.31,0.134,0.556
+1jdx2ot,"As a rule of thumb, global variables should not be used. There can be exceptions but exceptions are not the rule so for an entire game, you probably don't want global variables called mana etc.
+
+For a tiny program, it is not a big problem, but habits stay, so don't make bad ones from the start.",0.7734,Positive,0.121,0.023,0.856
+1jdx2ot,"There's a common guideline in programming known as DRY: ""Don't Repeat Yourself"".
+This is basically the idea that when you see yourself writing the same block of code over and over,
+see if you can restructure your code so that this is put somewhere common that you do only once.
+While not always to be slavishly followed, it's a good guideline, especially starting out.
+Not only does repetition clutter up your code, it can easily lead to bugs where you fix something in one place, 
+but forget about one of the other 9 places you need to make the same change.
+
+Eg. here, notice that after every action, you have:
+
+    time.sleep(1)
+    load()
+    
+So why not remove this from every action, and put it **outside** the if.
+
+Indeed, you've kind of already got a bug in your code related to this where these things you should be doing every time aren't
+always called - consider what happens when you select ""heal"" without having enough mana.
+
+
+Second, you're looping by re-calling the `load()` function at the end of each action.  This is known as ""tail recursion"",
+and isn't really a good idea in python.  You're basically creating a new invocation of the function, which is just going to
+pile up iterations until you reach a limit (1000 by default) before python thinks you've probably got an unbounded recursion
+error in your code and raises an exception.
+
+The standard way to do this in python is not recursion, but rather a loop, such as a while loop.  Eg:
+
+    is_running = True
+    
+    while is_running:
+        if defend == 0: 
+            ... rest of your code
+            
+And remove the calls to `load()`
+
+You might also want to consider moving the various actions into their own functions.  Ie. instead of being in the body of the load() function,
+have seperate `fire`, `heal`, `charge` etc functions that you **call** from the load function.  Ie:
+
+    if move == ""load"":
+        load()
+    elif move == ""heal"":
+        heal()
+    ...
+    
+This can break things down into smaller chunks that just do one thing which can help with organisation.
+
+For a slightly more advanced technique, you could even potentially use a dictionary to get rid of the if block altogether by something like:
+
+    ship_actions = {
+        ""fire"": fire,
+        ""heal"": heal,
+        ...
+    }
+    
+And in your loop do:
+
+    action = ship_actions.get(move)
+    if action is not None:
+        action()
+    else:
+        print(""Invalid input 😔"")
+        defend = 1
+        
+
+Next, you're using global variables to track the various stats being changed (note that if you do break things into functions, these will need the global declaration for the things they change too).  While this is OK when learning and you haven't learned about more advanced features to manage state, it's generally strongly frowned upon in any real code, as with bigger programs it quickly becomes complex to reason about when and what changes them.
+
+Instead, it's better for functions to take inputs they need and return outputs.  This can get cumbersome if you're changing multiple things, so a useful approach is to **bundle** this state into a class.  This is perhaps a bit more of an advanced topic, so don't worry too much about it if just starting out, but its something worth learning as you get the hang of the basics:
+
+Think of classes as bundles of variables, or more accurately, as *blueprints* that create bundles of variables.  Eg we could define a Game class like:
+
+    class Game:
+        def __init__(self):
+            self.bosshealth = 100
+            self.mana = 30
+            self.health = 100
+            self.defend = 0
+           
+The `__init__` function is a special function for classes (called an **initialiser**) that sets it up.  ""self"" is a variable that refers to the instance object being created by it, so its what
+we're creating these variables on.  The ""."" notation means ""access the variable on this instance""
+           
+If you now do:
+
+    game = Game()
+    
+The `game` variable will now be an **instance** of the game class with variables initialised to those values.  Ie. instead of using `mana = mana - 10`, you'd write `game.mana = game.mana - 10`.
+You can now pass this game object in as an argument to your functions, and modify it and get rid of the global variables entirely.
+
+Going a bit further, classes are actually a bit more than bundles of variables - they can also bundle **functions** as well (called ""methods"").  Eg. we could make those `move`, `fire` etc functions associated with the class.  Eg:
+
+
+    class Game:
+        def __init__(): ... # as before
+        
+        def fire(self):
+            if self.mana > 10:
+                self.bosshealth = self.bosshealth - 10
+                self.mana = self.mana - 10
+                print(""BOOM"")
+            else:
+                print(""Not enough mana"")
+                
+        # ... add the other functions too
+                
+Again the ""self"" argument is a special argument that corresponds to the instance object we're invoked on.
+Now instead of calling `fire(game)`, we can do:
+
+    game.fire()
+    
+And it'll call that method.",0.9937,Positive,0.093,0.03,0.877
+1jdx2ot,"Your program never ends, even when the game is over. It is generally better to iterate with a loop rather than using recursive calls.
+
+    while game_not_over:
+        # Play game
+        ...",0.6486,Positive,0.169,0.0,0.831
+1jdzjoj,"If you have a file `example.py` and you want to import that file in another file then you do this in the other file:
+
+    import example     # imports example.py
+
+When you import a file you execute the file you are importing.  So if the file you are executing contains:
+
+    print(""Hello world"")
+
+you will see ""Hello world"" printed.",0.0772,Positive,0.024,0.0,0.976
+1jdzjoj,"If you want something to run you can make it a function in your module. Then, call it. 
+
+    from mymodule import myfunction
+    myfunction()",0.0772,Positive,0.058,0.0,0.942
+1jdzjoj,"> I think that you can execute it with "".py"", but it doesn't works. 
+
+* Describe what ""doesn't work"" means - What does happen when you do what?
+
+* Are you on Windows?",0.0,Neutral,0.0,0.0,1.0
+1jdzjoj,"Use uv with Arkalos.  
+  
+Learn about Code to Run vs Code to Reuse:
+
+[https://arkalos.com/docs/structure/](https://arkalos.com/docs/structure/)
+
+Create your reusable code such as modules, functions, ets in the app folder.
+
+Import them into your scripts and call them.
+
+And then you run your scripts with \`uv run\` command
+
+[https://arkalos.com/docs/scripts/](https://arkalos.com/docs/scripts/)",0.2732,Positive,0.045,0.0,0.955
+1jdzi34,"Just get used to work with large Python codebases on GitHub, for example. Try to ""bug hunt"" there, maybe even open issues and make some original contribution.",0.3182,Positive,0.081,0.0,0.919
+1je5n02,Please at least copy/paste the traceback. This is just way too vague to give any meaningful advice.,0.4939,Positive,0.23,0.07,0.7
+1je5n02,"If you say your file is in the right spot, first you should check where your runtime directory is. A super easy way is as follows:
+
+    import os
+    print(os.getcwd())
+
+This shows you where python thinks you are currently at, and lets you find the correct file path. Start from here, and let us know if this doesn't help resolve your issue.",0.52,Positive,0.101,0.066,0.833
+1jdyyws,"Use the py launcher, if you run ‘py -0’ you should get a list of the pythons installed, you can select the one you want to use by doing ‘py -3.10 main.py’ , ‘py -3.13 -m pip install …’ and so on",0.0772,Positive,0.032,0.0,0.968
+1jdyyws,Look into using uv,0.0,Neutral,0.0,0.0,1.0
+1jdyyws,I used to use the windows version of pyenv and this does work well. I have now moved to uv across all platforms and very happy with it.,0.7264,Positive,0.202,0.0,0.798
+1jdyyws,"I use Colab in addition to local python IDE.  The cloud option maintains all libs at current levels (eventually, not instantaneously should you discover the inevitable issue), can be used to export a link to users w/o python installed.
+
+Perhaps an option to resolve loading/messing with version/path issues.",0.3818,Positive,0.055,0.0,0.945
+1jdyyws,"I recommend only installing from python.org don't change the original default install options. Especially, use the default install folder, and do not change the path. Do not run the installer as administrator. Then only use the `py.exe` launcher.
+
+You can have multiple major versions installed. The launcher will recognise when you have a virtual environment activated and will use it.",0.1376,Positive,0.041,0.032,0.926
+1je3zzj,pls move your eyes to the right side ----> and you will see wiki :),0.5106,Positive,0.249,0.0,0.751
+1je3zzj,"Try free courses like Coursera's ""Python for Everybody"" and YouTube tutorials, using ""Python Crash Course"" for practice—with certificates as a bonus.",0.765,Positive,0.332,0.096,0.571
+1je3zzj,"It’s easiest to learn python or sql when you, listen very closely to this part: _have a problem you can solve with python or sql_.
+
+I’m not trying to be a jerk. But your best course of action is to try and find the ‘problem’. 
+
+Here’s just one idea:
+
+- predict the presence of a disease given test results 
+
+How to do that:
+
+- find data on the internet that has a table comprising records with tests results, maybe demographics, and if the patient had a disease the were testing for.
+
+- pull that data in a google colab notebook.
+
+- follow tutorials on youtube on how to predict a disease in python 
+
+- keep looking stuff up that you don’t know 
+
+- repeat for a few years",0.7615,Positive,0.075,0.029,0.896
+1je3zzj,CS50 Python or mooc.fi. CS50 is a more compressed course.,0.0,Neutral,0.0,0.0,1.0
+1je3zzj,I joined «Introduction to Computer Science and Programming Using Python » from MITx during covid. It is totally free but you can receive the certification by paying 80$ if you validate the exam (which I did). It is for beginners but it was quite intense (15h/week for 2 months). I really enjoyed it and it gave me solid fundations to use python for my work.,0.922,Positive,0.205,0.0,0.795
+1je3zzj,from personal experience the best way to learn anything is by jumping in and doing it. start out following the basic hello world tutorials and branch out from there. It depends on what your interested in. I have severe ADHD so I am constantly jumping from one project to the next as I get bored.,0.4939,Positive,0.116,0.079,0.805
+1je3zzj,"Harvard CS50 is free on youtube but a little slow, MOOC - University of Helsinki course is a great text-based course and I also have a [Python and Data Science](https://www.udemy.com/course/python-foundations-for-data-science-from-zero-to-data-analy/?couponCode=FEB2025-PYTHON) course that starts from scratch and assumes no prior knowledge. Theres resources will have you covered.
+
+In my view, the only truly valuable certification is a CS degree. All other resources should be used primarily for gaining knowledge.",0.9565,Positive,0.249,0.036,0.715
+1je2tdx,"What do you mean by ""upload""? Where are you uploading it? Show your code.",0.0,Neutral,0.0,0.0,1.0
+1je2tdx,You might like [Polars](https://docs.pola.rs/user-guide/getting-started/),0.3612,Positive,0.455,0.0,0.545
+1je2tdx,Would using a desktop pc instead of a laptop work?,0.0,Neutral,0.0,0.0,1.0
+1je2qfj,"We're going to need more info to help. Most likely you're getting EOL or tab characters in your string and the int conversion can't handle them, but no way to know without more info",-0.2067,Negative,0.054,0.076,0.87
+1je2qfj,"If your text file contains one number per line, you can do:
+
+
+    FILE = 'numbers.txt'
+
+    with open(FILE, 'rt', encoding='utf-8') as fp:
+        while line := fp.readline().strip():  # Read one line on each loop.
+            try:
+                number = float(line)  # Try converting string to float.
+            except ValueError:  # Catch error if 'line' is not a number.
+                print(f""Error: '{line}' is not a number."")
+            else:
+                print(f""Number: {number}"")  # Do something with number.",-0.128,Negative,0.084,0.044,0.872
+1je2qfj,"Can you share a snippet example of what your typical TXT file looks like?
+
+Numbers only, or mixed numbers with text?
+
+Example: one number per line, no error handling:
+
+    with open(""my-text-file.txt"", 'r', encoding='utf-8') as f:
+      one_number_per_line = f.readlines()
+    
+    for i in range( len(one_number_per_line) ):
+      one_number_per_line[i] = int(one_number_per_line[i])",-0.4696,Negative,0.118,0.158,0.725
+1je2q9x,"What form of notification do you want to implement?
+
+What web framework are you using?",0.168,Positive,0.106,0.0,0.894
+1je2ggs,"Your example is _valid_, but not the most extensible approach. Enums are primarily intended to define a fixed set of values rather than encapsulating behaviours. The mix of values and behaviours makes the class less easily modified or extended as you have to ensure that both the value and the behaviour remain valid.
+
+If your example is strictly limited and unchanging, then I think the solution is OK but not ideal. If there is a possibility of future expansion, a regular class would be a better choice.",0.968,Positive,0.257,0.057,0.686
+1je2ggs,enums should be enumerations.,0.0,Neutral,0.0,0.0,1.0
+1je2ggs,"This sounds like a case for subclasses
+
+See here: https://www.geeksforgeeks.org/create-a-python-subclass/",0.3612,Positive,0.238,0.0,0.762
+1je2ggs,"What’s wrong with using just a plain class?
+
+Have a different class method constructor for each device type
+
+```
+class Device:
+  def __init__(self):
+    raise NotImplemented(“Use class constructor methods”)
+
+  @classmethod
+  def Server(cls):
+    instance = cls.__new__(cls)
+    instance.device_type = ‘server’
+    Return instance
+```",-0.4767,Negative,0.0,0.081,0.919
+1je2ggs,"Surprised you are not using `protocol` or *abstract base class* here.
+
+https://www.youtube.com/watch?v=dryNwWvSd4M",0.2263,Positive,0.147,0.0,0.853
+1je2ahp,"So have you started coding ? 
+
+Or spending time deciding whether to go for course or the book ?",0.0,Neutral,0.0,0.0,1.0
+1je2ahp,"I mean, the book's pretty good so you can't go wrong there.",0.825,Positive,0.52,0.0,0.48
+1je6lpx,I'm not sure how anyone could answer that.,-0.2411,Negative,0.0,0.219,0.781
+1je6lpx,I'd recommend doing some sanity checks - try to reduce the problem space to something small and trivial and make sure you get what you expect. Then try to build up from there.,0.25,Positive,0.131,0.104,0.765
+1je6lpx,"(a) What is the total number of possible outcomes?
+
+(b) How fast can your program analyze one outcome?
+
+Multiply your answers to (a) and (b) above, and your program should find a solution in that amount of time. Since it is an optimization problem, it should need to examine every outcome, so it probably won't finish sooner than that[.](https://www.reddit.com/user/ovi_left_faceoff/)",0.4329,Positive,0.104,0.043,0.854
+1je6lpx,"Let's say your 60 variables are binary decision variables, 0 or 1.
+
+Then there are 2\^60 = 1.15 x 10\^18 possible combinations. If your program can do 10\^9 per second (which would be very fast), it should only take 36.5 years to finish.
+
+This is why combinatorial optimization is so difficult and there is so much interest in finding ways to speed up the search. As a general rule, shortcuts depend on the details of your problem.
+
+Often there are heuristics, approaches which are known to give (probably) a ""pretty good"" rather than an optimal solutions. Sometimes there are even proofs that the heuristic will give a solution that's within, say, a factor of 2 of the optimal. If you're looking for good enough instead of perfect, this might be the strategy you want to pursue.
+
+One heuristic that sometimes works is to solve the problem as a linear program rather than an integer programming one. LP algorithms are much faster. That means that you're allowing values that aren't integers, so then you have to have a rounding procedure that forces all the fractional solutions to be valid integers.
+
+You might also be able to factor your problem into smaller ones. Again, the strategy depends on the details.",0.9647,Positive,0.155,0.048,0.797
+1je6lpx,What library? How many graph edges?,0.0,Neutral,0.0,0.0,1.0
+1je6lpx,"Sometimes having MORE constraints actually helps to reduce the problem instead of making it more difficult.
+
+Do you have soft constraints and an objective function (cost) that you minimize? If so, ORtools will try to find an optimal solution (or prove that the current solution is optimal), which might not be necessary in your case; perhaps you can be happy with a solution that doesn't violate any hard constraints...? If so, you can get it by setting the time limit.
+
+Do you limit your IntVars (lower & upper bound) as much as possible? Perhaps you can only use BoolVars instead?
+
+Do you use multiple workers? I would try 8, 16, 24 and 32 on a computer with many CPU cores.",0.9327,Positive,0.162,0.041,0.797
+1je6lpx,"Best place to start would be to calculate your max possible combinations.
+
+Then you want to check if there are loops in your code
+
+Then you should start looking into multiprocessing
+
+There was an Advent of Code question this year where the solution was 300 trillion entries long. (You had to return the total count, and the trick was not to generate and count, but to cache and count). My point is that things can easily get very large, very fast.",0.7506,Positive,0.099,0.013,0.888
+1jdc1ky,https://roadmap.sh/python,0.0,Neutral,0.0,0.0,1.0
+1jdc1ky,"The answer will now be the same for the rest of your learning journey: do something. Want to learn how to make a website? Start with a basic website. Like stats? Do a data visualization project that is interesting to you.
+
+What interests you? What's something you'd like to have but don't?
+
+Python is an incredibly flexible language, so you can pretty much do anything you want -- so what do you want to do?",0.9365,Positive,0.235,0.0,0.765
+1jdc1ky,You can go for 'Automate The Boring Stuff With Python' by my dude u/alsweigart or the Harvard CS50 course. Check 'em out!,-0.3802,Negative,0.0,0.11,0.89
+1jdc1ky,"A project. 
+
+Don't ask what is a good project, just think up something you want to do and get to it. You learn by doing things you don't know how to do.",0.4939,Positive,0.13,0.0,0.87
+1jdc1ky,"Start a project, trust me. That's where the real learning begins. 
+
+For example, I'm making an ultrasonic water level sensor for a watering hole on a cattle farm.  It notifies the farmer by text if the level stays too low for too long. This has taken me beyond what I originally learned, but it's all still problem solving.",0.0387,Neutral,0.087,0.085,0.829
+1jdc1ky,"Start a project. You'll learn so much more by failing, figuring out what went wrong, snd fixing it.",-0.7703,Negative,0.0,0.308,0.692
+1jdc1ky,Start a project. A personal one. Get away from theory and get into applied.,0.0,Neutral,0.0,0.0,1.0
+1jdc1ky,"Take up ""Learn More Python the Hardway"" by Zed Shaw. We will learn to build variety of Linux CLI tools using Python, and go on to build data structures from the application perspectives. The book helps us to understand the simplicity of programming languages, by making us to build our ""own little interpreters"". Keep pushing all your practise code to ""Github Repo"" for referring in future.
+
+In short it makes you realize ""Everything that a processor sees is TEXT, (in binary digits)"". After that, any tool, programming language, technology, framework becomes super easy to grasp.",0.8555,Positive,0.094,0.0,0.906
+1jdc1ky,DSA,0.0,Neutral,0.0,0.0,1.0
+1jdc1ky,buy rpi and do some robot stuff,0.0,Neutral,0.0,0.0,1.0
+1jdc1ky,Build something cool or keep learning or a mix of the two. Depends on your interests.,0.5106,Positive,0.249,0.0,0.751
+1jdc1ky,Think of some project that would help you in your life and start doing it.,0.4019,Positive,0.162,0.0,0.838
+1jdc1ky,"Jst ask urself. wht u wanna build now?  
+Is it a game? or use it for ML? or u wanna do some backend stuff? or do u wanna get ur hands dirty in DSA?
+
+U can literally do anything using python. Its the choice what matters :P",0.3167,Positive,0.11,0.062,0.828
+1jdc1ky,"Now, it’s time to apply your knowledge and level up:
+
+1. Pick a Path: Decide your focus, Web Development (Flask/Django), Data Science (Pandas/Numpy), Automation (Scripting), AI/ML (Scikit-learn, TensorFlow), or Backend Development (FastAPI).
+
+2. Build Projects: Start small like To-Do App, Web Scraper, Data Analysis on Kaggle, or an API with Flask. Projects solidify your learning.
+
+3. Solve Problems: Practice on LeetCode, CodeWars, or HackerRank to improve logic & problem-solving skills. -> very imp step without coding you cant enter top tier IT companies
+
+4. Learn a Framework: If you like web dev, learn Flask/Django. For Data Science, explore Pandas, Matplotlib. AI? Try TensorFlow, PyTorch.
+
+5. Contribute to Open Source: Join GitHub projects to gain real-world coding experience.
+
+6. Master Advanced Python: Learn OOP, Generators, Decorators, Async Programming to write better code.
+
+Pick a project, start coding, and keep learning",0.9314,Positive,0.135,0.029,0.836
+1jdc1ky,Build an application,0.0,Neutral,0.0,0.0,1.0
+1jdc1ky,You should ask yourself why you learned python? Was there any particular reason or just cuz my friend said ?,0.5514,Positive,0.165,0.0,0.835
+1jdc1ky,What did you learn it FOR?,0.0,Neutral,0.0,0.0,1.0
+1jdc1ky,[https://github.com/search?q=python&type=repositories&s=updated&o=desc](https://github.com/search?q=python&type=repositories&s=updated&o=desc),0.0,Neutral,0.0,0.0,1.0
+1jdc1ky,Learn the advanced.,0.25,Positive,0.5,0.0,0.5
+1jdc1ky,Prove it.,0.0,Neutral,0.0,0.0,1.0
+1jdc1ky,"1.	Build Small Projects – Try making a to-do list app, a simple game (like Tic-Tac-Toe), or a web scraper using requests and BeautifulSoup.
+
+2.	Learn a Framework or Library – Depending on your interests:
+	•	Web Development → Try Flask or Django.
+	•	Data Science → Learn NumPy, Pandas, and  Matplotlib.
+	•	Automation → Use Selenium, PyAutoGUI, or shutil for automating tasks.
+
+3.	Solve Coding Challenges – Sites like LeetCode, HackerRank, and CodeWars can help sharpen your problem-solving skills.
+
+4.	Contribute to Open Source – Find a GitHub project that interests you and make small contributions.
+
+5.	Deepen Your Knowledge – Learn about object-oriented programming (OOP), algorithms, and data structures.",0.8519,Positive,0.121,0.0,0.879
+1jdc1ky,"Python Intermediate + projects 
+
+
+Then after that
+
+
+Python Advanced + projects 
+
+Internship or Job
+
+Good Luck",0.7845,Positive,0.418,0.0,0.582
+1jdc1ky,Make it swallow a deer and get the footage.,0.0,Neutral,0.0,0.0,1.0
+1je1kw2,"By doing, quite easy. And if you don't use it, you lose it.
+
+In addition, you usually only have to remember the syntax roughly, as modern IDEs provide you with possible syntax and it's parameters.",0.1263,Positive,0.082,0.069,0.848
+1je1kw2,"Numpy/Pandas/Matplotlib are 3 really great packages to get familiar with for all kinds of data analysis tasks. Step 1 would probably be to look up some simple online course / follow along. Read the code and no matter how simple it looks type it yourself and fool around with it.
+
+Then when you get to a somewhat higher level, reading the documentation itself is the best place to get accurate info about what each and every function does and what keyword arguments you can add to modify its behaviour.
+
+Once you get exposed to it enough, it will start to feel pretty natural and the method names themselves are often quite descriptive... but in general, you will want to get acquainted with each module individually. ""Python"" is just the base language, all the other specific features are implemented in Numpy/Pandas/Matplotlib and thus should be learned from those sources.",0.6245,Positive,0.077,0.043,0.88
+1je1kw2,"How can IT professions/developers can learn finance terms such as ratios , CAPM , NVP etc easily without much efforts in a short time so can apply on stock market ?",0.34,Positive,0.085,0.0,0.915
+1jdxqrh,"It's really, really unclear what you are trying to do here. 
+
+Unit tests are for testing code you have written. But this isn't calling any code that you have actually written; the entire app is defined within the test. So what are you testing?
+
+And then you mock the entire endpoint, and call your mock. Again, why? All you're doing is testing a mock you defined within the test. Why? What is it you are trying to achieve? Mocks are for removing dependencies that are external to the thing you are testing, so that you can just test the actual thing and not worry about all those external things. But here there is nothing except for the mock, so the test is pointless.
+
+I think you need to go back to basics and think about what, exactly, you are trying to test.",-0.9609,Negative,0.02,0.137,0.844
+1jdojk7,"I am assuming that with “doesn’t seem to be loading” you mean that it returns something different from what you are expecting, and not a `500` (i.e., not hitting any of the `HTTPException`).
+
+At a glance, nothing obvious.
+
+I wonder if it’s failing to validate the data sent with your `POST` request?
+
+Are you doing any validation in `CreateUserRequest`?",-0.2869,Negative,0.042,0.062,0.896
+1jdojk7,"If you're getting a 500 error look at your front end and the script it hits on the backend, you may not have it in your from xyz import that_router",-0.4019,Negative,0.0,0.088,0.912
+1jde81k,AWS provides free ec2 instances,0.5106,Positive,0.452,0.0,0.548
+1jde81k,"AWS has a free server for 1 year. 
+
+Google cloud and Oracle cloud, have a free server forever*.",0.765,Positive,0.337,0.0,0.663
+1jde81k,Aws free tier.,0.5106,Positive,0.623,0.0,0.377
+1jde81k,"consider using an old pc or laptop and setting up your own linux server. other than running your scripts, there are lots of great things you can do with one. pihole and more secure dns for instance.
+
+[https://github.com/awesome-selfhosted/awesome-selfhosted](https://github.com/awesome-selfhosted/awesome-selfhosted)",0.7778,Positive,0.159,0.0,0.841
+1jde81k,"Ya I am doing AWS right now. Kinda a bitch. They make it real complicated. 
+
+I'm my searchs linode and digital ocean came up. I would take a look at those before going with AWS.",-0.5434,Negative,0.0,0.105,0.895
+1jde81k,"If pythonanywhere ain't cutting it, it might be more of a you issue. You can definitely have a free web app hosted.",0.7484,Positive,0.302,0.0,0.698
+1jde81k,"What do you mean by “keep the session alive”?
+
+Are you storing data from one request in a variable and trying to read it in another request?
+
+If so, you might need to use a database. It [looks like PythonAnywhere supports MySQL for free](https://help.pythonanywhere.com/pages/KindsOfDatabases/).",0.6553,Positive,0.118,0.0,0.882
+1jde81k,"Always free always on e2-micro with Google cloud. It's not very powerful though, so it really depends if it meets your needs.",0.1904,Positive,0.128,0.099,0.774
+1jde81k,Search Google for 'free vps hosting'.  There are many out there that are less than $5usd a month.,0.5106,Positive,0.171,0.0,0.829
+1jde81k,I recommend setting up an AWS EC2 instance as others suggested. I know a guy who hosted his code on replit and then wrote a local script to ping an endpoint to constantly to keep the session alive. I’m strictly **NOT** suggesting you do this as it’s probably against their TOS but putting it out there for… information sake,0.3716,Positive,0.063,0.0,0.937
+1jde81k,"It’s not free but there are flat rate VPS hosting providers out there, and I pay a flat rate of $7.00 US per month and can do pretty much anything I need with it.  Had it for years now",0.4308,Positive,0.106,0.085,0.81
+1jde81k,"Ok, not free, but really next as makes no difference. Hetzner.de has VPSses that start at €3/month. No catch, no hidden costs. Gig internet, i think capped at 20TB/month.  All the usual linux server distros. They even throw in a good firewall for free. 
+
+Connect over ssh with VSCode or your own favorite suite of tools and Bob’s your uncle.",-0.5194,Negative,0.129,0.188,0.683
+1jde81k,"what are you doing that you need to keep the session alive? maybe we can help you re-think what you're doing in a way that will make it so the session doesn't actually have to be alive, but instead you could resume what you were doing in a new session as if it were.",0.5346,Positive,0.1,0.0,0.9
+1jde81k,github,0.0,Neutral,0.0,0.0,1.0
+1jde81k,[deleted],0.0,Neutral,0.0,0.0,1.0
+1jduzsz,"u/Alarming-Evidence525 First, there seems to be a typo in the code you've written there - should \`fetch\_page()\` be \`scrape\_page()\`, as the latter is what you refer to in your \`scrape\_batch()\` function? By the way, I'm not convinced the batching is helping you here. Since you have long sleeps and timeouts within your functions (for good reason), it might be that you spend a long time waiting for the last few ""tail"" tasks in the batch to finish. Without the batching, not only would you simplify the code, but the async logic would be able to move on to the next tasks without waiting for the difficult ones to complete.
+
+I applaud you for putting in sleeps, but I still think that you are effectively hammering the endpoint when the batch starts since all of the tasks begin shortly after one another (due to the nature of async). I would really recommend putting a small but random (async) sleep ahead of each request, to spread out your calls. 
+
+  
+More broadly, I think you're going to struggle make this much faster from a single IP. I'm sure there is rate limiting and your code implies it, too. It's just difficult to get away from the fundamental fact that a single user (IP) makes requests to an endpoint at a given rate, whether using async or not. You could do proxies, or you could go for multiple machines with a global task queue. Both entail a chunk more work.
+
+Good luck!",0.951,Positive,0.103,0.042,0.854
+1jduzsz,multithread the requests.. get all 20000 pages saved to disk.. then parse it in one go..,0.4215,Positive,0.157,0.0,0.843
+1je19cl,"Your question is not clear. What is a ""very low-level machine"", and what does that have to do with ""boolean things"" or indeed with the Python terminal?",-0.2924,Negative,0.0,0.08,0.92
+1jdrqqj,"> Every time I run CMD and send the file, it just hangs with errors. 
+
+Please post the entire traceback for the error message you are receiving.",-0.4215,Negative,0.078,0.173,0.748
+1jdrqqj,"Would be much easier to read your code with correct indentation, maybe you could upload it to git and share a link? Or use some other way to post\\share your code (that keeps the indentation)",0.6124,Positive,0.135,0.0,0.865
+1jdrqqj,"Is the problem in generate\_game() or create\_word\_document().  If you print the output of generate\_game, does it look correct?",-0.4019,Negative,0.0,0.137,0.863
+1jddfnu,"Tried to convert 11.1 meters to centimeters and got ""Please enter a valid value"".
+
+Why aren't you using floats?",0.3182,Positive,0.119,0.0,0.881
+1jddfnu,"Thx OP. Nice example for a Flask App. Was always keen on getting into it. Now I have a nice golden example on what I could do with it. (I mean idea wise, not to copy your stuff)
+Could you recommend a flask tutorial for getting started?",0.9349,Positive,0.31,0.0,0.69
+1jds7my,"You should write tests per function, per project.
+
+The idea that your tests have dependencies issue is wrong, from the get go. You are testing that, this function…operation works here. 
+
+Separate Projects DO NOT share tests. Why would they ever. Repetitive….is okay in tests. You test this project in this project, and if that project needs a test…that projects gets it.
+
+Repetition is okay in testing, it more about why wouldn’t I want to test this old thing, then this old thing doesn’t need to be tested anymore. It’s here’s a new thing let’s write some tests, have a wrote a test about this thing before here…who knows? Who cares?  do it again. Having 20…200 extra tests…it’s better than having -3 of the tests you needed. 
+
+I’m literally just trying to run every function and make sure they all work half the time..or the one that are not working are the only ones not working..and I sort of know why.
+
+It will stop me, from doing dumb shit that breaks everything.",-0.485,Negative,0.073,0.079,0.847
+1jds7my,"you could technically do it with conftest and some shared test environment but from the other users statement, you should never share tests, seems like an antipattern.
+
+you could package your utilities as a Pytest plugin as well",0.6449,Positive,0.177,0.054,0.769
+1jds7my,"This isn't really a good idea, because you've now coupled your projects. `project_b`'s tests can no longer run without `project_a` being present.
+
+That may not seem like a problem to you, when running tests locally on your machine, but if other people were to contribute to the project they would find they cannot run the tests without having the other project in an equivalent location. But that's not all; this would prevent you from running tests in CI pipelines (such as GitHub Actions), which are very helpful even for solo developers for testing code and making sure you haven't accidentally broken anything, or introduced vulnerabilities.
+
+You should instead simply duplicate any test code your projects need so that they can be run independently. Tests do not need to be DRY.",0.8716,Positive,0.112,0.049,0.839
+1jds7my,"Why not create a `project_a.testing`, which you can import from the tests?
+
+As an example, the test utilities for pandas:
+
+https://pandas.pydata.org/pandas-docs/stable/reference/testing.html",-0.2057,Negative,0.0,0.087,0.913
+1je7j49,"What exactly do you mean by ""AI""? Reinvent ChatGPT from scratch? Well, it only took a handful of clever people a couple decades or so, so… give it a try?",0.6848,Positive,0.184,0.0,0.816
+1je7j49,"What do you mean with original modules? Modules included in the base installation of Python?
+
+You could maybe make a Markov Chain with the standard library. What is your goal? Learning? Build a cool application?",0.6767,Positive,0.152,0.0,0.848
+1je7j49,"Do you mean creating your very own AI model? That would be a massive task, and probably require petabytes of data from the internet and a massive amount of compute to do the math in a reasonable time. Even a very simple model needs a huge corpus of data to train on just to understand how language works. You're likely looking at tens of millions of dollars at the low end.
+
+However, downloading an existing open-weight model like Gemma, Llama, etc. and incorporating it into a Python project is simple. You could even fine-tune it to your specific use cases with moderate effort, by providing sample request / response pairs that it should emulate.
+
+Here's an analogy - building your own foundational model is a bit like raising a child through college. It takes a lot of learning just to get a child to be able to speak, read, and write, and then to teach them basic facts about the world. Fine tuning is a bit like taking a college graduate who already has acquired those skills and training them to work at your company.
+
+Now, in theory, there's no reason Google couldn't go and adopt orphaned babies, raise them to adulthood, give them a good education, and then hire them on as employees. But even apart from how creepy and dystopian it would be, it would also be a huge waste of Google's money, because they can also take adults who were raised on someone else's dime and give them the extra training they need to be successful at Google. That is vastly faster and vastly cheaper for Google to do, and it's also going to be vastly faster and cheaper to use a foundational model that someone else made and just fine-tune for your needs.
+
+Depending on the effort and time you're willing to put in, you can make some fairly significantly different models just by fine-tuning an existing model.",0.8717,Positive,0.062,0.025,0.912
+1je7j49,"Lol, you have a lot of work ahead of you bub",0.4215,Positive,0.237,0.0,0.763
+1je7j49,"No, because you're asking this question, no you can't. Someone can, but YOU can't.",-0.296,Negative,0.0,0.211,0.789
+1je7j49,Yes.,0.4019,Positive,1.0,0.0,0.0
+1je7j49,you can try using something like chatterbot perhaps?,0.3612,Positive,0.263,0.0,0.737
+1je7j49,This is kinda more a question for others since this gave me an idea. Is it feasible to build out your own NLP using existing libraries in python?,0.0,Neutral,0.0,0.0,1.0
+1je7j49,"There are several options, depending on what you mean by ""make my own AI"". In rough order of complexity/difficulty (easy --> impossible)
+
+  
+Option 1. Use python to call an AI model using whatever SDK. https://github.com/openai/openai-python. You're not really making your own AI, but you can plug it into some personal workflow or app or something.
+
+Option 2. Use Ollama (https://ollama.com/) to run your own AI on your own hardware (local, or cloud instance). You could then ""customize"" it to an extent: https://medium.com/@sumudithalanz/unlocking-the-power-of-large-language-models-a-guide-to-customization-with-ollama-6c0da1e756d9. Not really necessary, but if you wanted you could use python to call the local/cloud api you created, just for ease of use and to tick the ""python"" box.
+
+Option 3: Train an AI on your own dataset (https://cloud.google.com/vertex-ai/docs/tutorials/tabular-bq-prediction)
+
+Option 4: Build your own neural network: [https://realpython.com/python-ai-neural-network/](https://realpython.com/python-ai-neural-network/)
+
+There are about a million other options, again depending on what you actually mean/want to achieve. Also your definition of ""AI"" (e.g LLM, vs machine learning, etc.)",0.6956,Positive,0.036,0.0,0.964
+1je7j49,"Not any time soon since, respectfully, you do not even seem to know what AI is. You seem ambitious, which is good! But you need to understand that AI is not just some program that you write; its core principles are based on advanced mathematics. You need to really understand the theory before you attempt to build your own model without libraries like TenserFlow. So if you want to work in AI, then find a course/textbook on machine learning and start there.
+
+On the other hand, you can use libraries and probably get a terrible language model running within an hour of ""vibe"" coding.",0.716,Positive,0.128,0.059,0.813
+1je7j49,You should first understand how AI works. Python comes later.,0.0,Neutral,0.0,0.0,1.0
+1je7j49,Yes you can. Check out Neural Networks from Scratch in Python.,0.4019,Positive,0.213,0.0,0.787
+1je7j49,"Yes  
+Its even easier with pytorch and perhaps huggingface. With just a few lines of code you can get started with a local LLM  
+[https://semaphore.io/blog/local-llm](https://semaphore.io/blog/local-llm)
+
+Alternatively, using even less code, you can use Python for API calls to the OpenAI API and use chatGPT via your terminal or your own GUI. Its not local-pc private but its a lot better than using the web model because you can adjust model parameters.
+
+I wrote this and you're welcome to try with your API key (you'll have to follow the instructions to get one and use it)  
+[https://pastebin.com/5jzhPUYC](https://pastebin.com/5jzhPUYC)  
+Dont trust any one with your API key.",0.7933,Positive,0.105,0.032,0.862
+1jdls03,"If you like him, then yes it's a great place to start. It really doesn't matter how,  just get started",0.838,Positive,0.363,0.053,0.585
+1jdls03,"If he motivates you, go for it. 
+
+The most important thing, however, is to just do it. Just start programming. Yes, you’re going to get confused and frustrated on a regular basis but the only way out is through. It happens to everyone.",-0.1163,Negative,0.075,0.085,0.84
+1jde21p,Look in the wiki of this sub to begin with. Here is a Roadmap for orientation: https://roadmap.sh/python,0.0,Neutral,0.0,0.0,1.0
+1jde21p,"Python Crash Course by Eric Matthes if you enjoy reading. The best beginner Python book IMHO
+
+If you prefer video learning, Udemy has great Python courses as well",0.8979,Positive,0.346,0.069,0.585
+1jde21p,Having a look at this subreddit's [wiki](https://www.reddit.com/r/learnpython/wiki/index#wiki_new_to_python.3F) is always a good start.,0.4404,Positive,0.244,0.0,0.756
+1jde21p,"I will just put the details of what I usually do when I want to learn a new language.
+
+I usually go to YouTube and watch some videos about how the language came into existence, what problems it solves, and why it became popular. That helps me understand the purpose of the language and where it fits in the programming world.
+
+
+
+After that, I try to find a beginner-friendly tutorial series - there are plenty of good ones on YouTube or free platforms like freeCodeCamp or Codecademy. I follow along with the videos and code along in an online Python editor like Replit or download Python and use VSCode or PyCharm (Community version).
+
+
+
+Once I get the basics like variables, loops, functions, and data types, I try to build something small on my own, like a calculator or a simple to-do list. That helps reinforce what I’ve learned.
+
+Most importantly, be consistent - coding a little every day helps a lot. Don’t worry if you get stuck. Google and Stack Overflow are your best friends. :) 
+
+
+
+Hope this helps, and enjoy the journey—it’s fun once you get into it!",0.9922,Positive,0.26,0.036,0.704
+1jde21p,Py4e on YouTube,0.0,Neutral,0.0,0.0,1.0
+1jde21p,Is Programming with Mosh on YouTube a good place to start? ,0.4404,Positive,0.244,0.0,0.756
+1jde21p,"I suggest figure out why you are considering learning programming to begin with. 
+
+Answer the question of what would you accomplish  if you knew all the python? 
+
+Simple answer like get good job hides the complexity of the following: Providing real value as a sw developer by fitting in a particular biz model is not a simplle task. There is more knowledge beyond simply knowing all the python and IT related domain specifics (of some specific field that u will end up serving by developing code after you have succeeded)
+
+U have to set a clear goal of what value shall u provide a to whom slecifically (yourself or some other particular person or group who are not yet satisfied with available IT solutions). At the very least have some sort of thirst to quench like Maybe solving a first simplest leetcode problem keeps you awake at night. U rly dont provide any context.
+
+Then learn the basics of python, like bare minimun, to get some initial half baked variant of a solution. Pick smth like vars, conditionals, loops, fns, running single file, couple of weeks and thats it. Then have a go at the problem you are trying to solve. From there figure out whats missing from your toolset. Idk i.e. u for some reason need concurrency or whatever.
+
+Learn HOW TO PROVIDE VALUE to uself or someone (real) other BY CODING and that is what sets apart people who cant land a coding job vs those who get an offer after having and hour long convo with tech side.
+
+Ppl who assume that u fit it somewhere at some company like a piece of puzzle after a bootcamp are a bit late. Sadly there is no more bubble in the industry anymore that would warrant quotas for such 'staff accumulation'.
+
+You have to figure out the subtle parts for yourself here. Sw dev does not have a scientific discipline to follow, otherwise we would approach it differently. (There are no online bootcamps to become X or Y scientist afaik lmao). Yet still u are expected to provide the end working mechanism that would be reproducible and flexible enough to withstand the consant stream of change.",0.9545,Positive,0.105,0.053,0.842
+1jde21p,CS50 Python on edX was the best thing I did to learn Python.,0.6369,Positive,0.276,0.0,0.724
+1jde21p,"Google ""Automate the Boring Stuff""",-0.3182,Negative,0.0,0.365,0.635
+1jdm5f4,"> Initial thoughts on timewise, I am planing to study 3 hours a day, everyday (including weekends). Since i will be working on my job as well. Hopefully can complete a career transition in 3 to 5 years.
+
+I'll just put it like this.
+
+I went back to graduate school 10 years after my undergrad to get a masters and a PhD. 
+
+It took me 6 years.
+
+My learning plan never went more than about 6-9 months out. And I took a hard left turn in what I was going to study at the end of my first year.
+
+Someone else commented that your learning plan looks like it's going to take 3-5 years. Frankly I think that's lowballing it by a factor of at least 2. Probably more. I'd consider  a much leaner plan that gives you flexibility to go in a different direction as you learn about exactly what it is you want to do.
+
+Get the fundamentals under your belt, get an application or two knocked out, then evaluate where you want to go next.",0.8658,Positive,0.088,0.018,0.893
+1jdm5f4,"Way too many books, many about the same topics, not nearly enough practice. 
+
+Just start learning",0.0,Neutral,0.0,0.0,1.0
+1jdm5f4,"Pick one book from each of those blocks of books, and this will be a much more reasonable plan. 
+
+But also, it's pretty suspect that you're trying to plan out 3-5 years of learning materials without even starting. It would be better to think about the next 3-5 weeks, and then actually start learning. Your plans and goals will change over time.",0.7096,Positive,0.117,0.061,0.821
+1jdgose,"Why do you want a python certification? If you think it will help you get a job: it won't. The skill you gain by going through the course will help, but the certificate at the end is not worth much.",0.468,Positive,0.168,0.048,0.785
+1jdgose,I think the best certification is a CS degree. Anything else if for the knowledge which is great.,0.8519,Positive,0.372,0.0,0.628
+1jdgose,That just depends on the company. I think it's pointless.,0.0,Neutral,0.0,0.0,1.0
+1jdgose,"Check your local job listings. If nobody is asking for either of these, then don't bother. ",0.2584,Positive,0.12,0.0,0.88
+1jdsc4c,"After poking around a little, I found that an actual URL for the service would look like this -- https://orgbook.gov.bc.ca/api/v4/issuer This is for the first example of the common scenarios. For the others you'd replace the ""/issuer"" with whichever part of the API you're trying to use, such as the one for searches. For this example you can see the result right in the browser, since the browser does a GET operation. 
+
+To use the API in a program you'd probably want to use the ""requests"" module. Recent Python versions have added similar functionality with the standard library, but requests is still a little friendlier, IMO.",0.6663,Positive,0.062,0.0,0.938
+1jdsc4c,"From the documentation link [https://bcgov.github.io/orgbook-bc-api-docs/api/](https://bcgov.github.io/orgbook-bc-api-docs/api/) you shared the first paragraph contains a link to their fourth version of their API ""v4"" (as well as ""v3""):
+
+>This document has been created as a first reference for the OrgBook BC API. When you become more familiar with the basic concepts, you may want to go on to explore the various Open API specifications (specifically [v3](https://orgbook.gov.bc.ca/api/v3/) and [v4](https://orgbook.gov.bc.ca/api/v4/)) and all of the endpoints available. You are encouraged to use the most up-to-date production version ([v4](https://orgbook.gov.bc.ca/api/v4/)) of the API in your applications to avoid any issues with backward compatibility.
+
+Hovering with the mouse shows [https://orgbook.gov.bc.ca/api/v4/](https://orgbook.gov.bc.ca/api/v4/)
+
+Opening this URL in the browser shows a great overview about the API ""endpoints"".
+
+Inspired by this StackOverflow [https://stackoverflow.com/questions/645312/what-is-the-quickest-way-to-http-get-in-python](https://stackoverflow.com/questions/645312/what-is-the-quickest-way-to-http-get-in-python) , and using the v4 URL endpoint ""issuer"", it could look like this in Python:
+
+    import requests
+    r = requests.get(""https://orgbook.gov.bc.ca/api/v4/issuer"")
+    
+    print(""Status code, 200 means OK, everything went fine:"", r.status_code)
+    print()
+    
+    print(""Headers returned with the result:"", r.headers)
+    print()
+    
+    print(""Raw content of the response:"", r.content)  # bytes
+    print()
+    
+    print(""Response content as plain text:"", r.text)     # r.content as str
+
+Parsing the result could require a JSON-format capable parser. And could look like this (inspired by this StackOverflow [https://stackoverflow.com/questions/7771011/how-can-i-parse-read-and-use-json-in-python](https://stackoverflow.com/questions/7771011/how-can-i-parse-read-and-use-json-in-python) ):
+
+    import json
+    parsed = json.loads( r.text )
+    print( ""Parsed JSON, interpreted as a DICTIONARY:"", parsed )
+    print()
+    # some examples ""extracted"" from the parsed result:
+    
+    print( ""page_size:"", parsed[""page_size""] )
+    print()
+    print( ""results:"", parsed[""results""] )",0.9644,Positive,0.12,0.021,0.858
+1jdm1z4,"Obligatory security nagging:
+
+Is in a production environment, and if so, is this a PLC you are authorized to access this way? If this is for learning in a lab or on your own hardware, then have at it. But if you are doing this at an actual factory or plant and starting from ""how to install Python"", then I would take a step back, and make sure you know what you're doing. End of security nagging.
+
+What PLC brand? They vary a lot. Best place to start would be the vendor's documentation. Python has a pymodbus package that can do RTU or TCP messaging. There are packages for OPC UA as well. You should be able to just search them. It doesn't matter how you install Python, just do it your favorite way. If you don't have a favorite way, I'd recommend the official installer for Windows, and whatever is in the distribution's native repository for Linux. Then learn how to work in virtual environments, which is where you'd install your dependencies.
+
+If you're someone who already understands Modbus and OPC but not Python, you could consider something like Node Red to poll the PLC data periodically and stuff if into a more friendly environment (like a database). That would require less boilerplate.",0.9852,Positive,0.153,0.028,0.819
+1jdm1z4,"Familiar with Scilab, free open source version of Matlab?  Plenty of demos in library.",0.5106,Positive,0.202,0.0,0.798
+1jdcnnd,"pathlib is the more modern, Pythonic way to deal with paths and path/file-related operations. There’s no reason not to use it. Lots of code uses the older ways, and it’s not wrong. 
+
+I like pathlib. I even use it to easily read/write to files without an open().",0.164,Positive,0.099,0.086,0.816
+1jdcnnd,"> But in downloading other repos I noticied most people still use OS for search or string concatenation.
+
+`os` has been around for a lot longer, that is all.",0.0,Neutral,0.0,0.0,1.0
+1jdcnnd,"There are a few situations where I might not use `pathlib`. 
+
+One is where I'm interacting with something which doesn't provide or accept `Path` objects. While I could convert back to string after manipulation, if the manipulation itself is relatively simple I think it looks cleaner to just use `os.path` in this case.
+
+Another is when there's some feature of an `os.path` function that isn't implemented in its `pathlib` 'replacement'. For example `os.path.relpath` would handle walking upwards for a relative path while `Path.relative_to` didn't until Python 3.12.
+
+```
+import os.path
+from pathlib import Path
+
+os.path.relpath(""/usr"", ""/usr/bin"")  # '..'
+Path(""/usr"").relative_to(""/usr/bin"")  # ValueError
+
+# 3.12 or later
+Path(""/usr"").relative_to(""/usr/bin"", walk_up=True)  # Path('..')
+```
+
+The final one is if I'm being **extremely** fussy about import time. `os.path` is (almost) always imported on startup by Python, while `pathlib` is not and so you incur a small performance penalty on startup. However if you're importing some other heavyweight libraries this is largely irrelevant, especially so if *they* import `pathlib`.",-0.7835,Negative,0.011,0.06,0.929
+1jdcnnd,the only issue I know is with scripts for Autodesk Maya - one of its internal classes called Path and it creates conflicts on execution. in all other cases pathlib is your choice,-0.128,Negative,0.062,0.077,0.861
+1jdotyn,"Hmm perhaps try using export csv mode. 
+
+    url = ""https://docs.google.com/spreadsheets/d/*************/export?gid=*********&format=csv""
+    tables = pd.read_csv(url)
+
+(note the changes I made to your URL, changing ""edit"" to ""export"" and adding the ""format=csv"").",0.0,Neutral,0.0,0.0,1.0
+1jdxobw,Just stop using it. It’s that simple.,-0.296,Negative,0.0,0.268,0.732
+1jdxobw,"You’re cheating yourself out of a good education if you’re 5 years deep and afraid to code without Ai. There’s no quick fix, there’s never going to be answer here or elsewhere that doesn’t just point you back to the start without Ai.",0.0485,Neutral,0.103,0.078,0.819
+1jdxobw,"1) Go to the tab that you have AI open in
+
+2) Close it
+
+I don’t know how you think it’s supposed to work. You’re supposed to *learn the language.* Learn to express your intent in it. It’s not a puzzle you figure out (or look up the answer to) it’s language you express function and intent in.",0.0,Neutral,0.0,0.0,1.0
+1jdxobw,"This is the future yall, engineers who can't even figure out how to NOT do something. We're doomed.",-0.6369,Negative,0.0,0.198,0.802
+1jdxobw,"Stop using AI, and go back to whatever level you're capable of without it. You'll likely have to 'relearn' a lot, because you never actually learned it in the first place.",0.1027,Positive,0.079,0.067,0.854
+1jdxobw,"Step 1) Stop using these tools. Google and stack overflow like every other programmer before you in the age of the internet. 
+Step 2) Git Gud. 
+Step 3) ????
+Step 4) Profit",0.6322,Positive,0.169,0.059,0.772
+1jdmmxx,"> is it just impossible to run different lines at once?
+
+If you're not using a GUI framework or something like Pygame, you probably need to implement some asynchronous processing via the asyncio or multiprocessing libraries.",0.3612,Positive,0.07,0.0,0.93
+1jdmmxx,Look into the threading library.,0.0,Neutral,0.0,0.0,1.0
+1jdknx3,"What have you tried so far? This isn't a ""do my assignment for me"" sub, but people may help you with problems that you are encountering.",0.0,Neutral,0.118,0.118,0.764
+1jdknx3,"I'd start by reading the *three* other threads in this subreddit about this exact problem:
+
+https://www.reddit.com/r/learnpython/comments/1evo1zn/im_feeling_defeated/
+
+https://www.reddit.com/r/learnpython/comments/1is75a4/given_a_coding_challenge_which_looks_rather/
+
+https://www.reddit.com/r/learnpython/comments/1hcuzl3/need_a_crash_course/
+
+And then get back to us if you have further questions.",-0.4019,Negative,0.0,0.088,0.912
+1jdknx3,"Here are some steps to follow to help you move forward:
+
+Do not convert the values to floats, use int.  You will want to use these values to access the character.
+
+find the max value for x, and the max y.  These are the maximum dimensions of the matrix.
+
+Create a dictionary,  I'll call it matrix and store the c associated with the x,y.  You can index a dict with a tuple.
+
+Create a nested loop for loop for the y and x to or from max\_x, max\_y.  Use the values from the for loop to get the c from the dict or a space if (x,y) is not in the dict.",0.4265,Positive,0.094,0.06,0.845
+1jdknx3,"Another approach would be to derive a list of row data from the html data, with each row containing the  x-coordinate , character, & y-coordinate. 
+
+	1. Sort the list by the y-coordinate and then by the x-coordinate.    
+	2. Use the sorted list to determine the maximum x-coordinate and use this number + 1 as the maximum line width.   
+	3. For each row, create an empty line, linewidth wide.    
+		a. Store each character in the empty line according to its x-coordinate.    
+		b. When each row is complete, print the row.
+
+Of course, all coordinate values need to be ints.   
+You might find it easier to make the empty line a list of space characters. This will allow you to replace the appropriate space character like this:
+~~~
+line[x] = character
+~~~
+To print the line, you’d use the join() like this:
+~~~
+print(“”.join(line))
+~~~
+Let me know if you have any questions or need more information.",0.8582,Positive,0.1,0.034,0.866
+1jdkeou,Don't check your `__pycache__` into your repo.,0.0,Neutral,0.0,0.0,1.0
+1jdbtga,"It probably won't be viewed as an outstanding achievement, but it's better than nothing. Generally, they want to see that you're capable of functioning effectively in a social dynamic.",0.9491,Positive,0.421,0.033,0.545
+1jdk3xe,"Google anything you can find regarding pandas, or ask AI to explain it to you. When you’re so limited by time, I do not know any alternative.",-0.3593,Negative,0.0,0.091,0.909
+1jdk199,Read this: https://nedbatchelder.com/text/names.html,0.0,Neutral,0.0,0.0,1.0
+1jdk199,"Variables in Python don't hold values but memory references to Python objects, such as `int`, `float`, `str`, and more complex objects such as `list`, `tuple`, `dict`.
+
+When you assign `list2` to `list1`, they are both looking at the same object. Any change you make to that object is reflected in all of the variables accessing the object.
+
+The syntax `[:]`, weirdly, creates a new `list` object.
+
+You can confirm this using the `id()` function which returns that memory address.
+
+    Python 3.13.2 (tags/v3.13.2:4f8bb39, Feb  4 2025, 15:23:48) [MSC v.1942 64 bit (AMD64)] on win32
+    Type ""help"", ""copyright"", ""credits"" or ""license"" for more information.
+    >>> l1 = [1,2,3,4]
+    >>> l2 = l1
+    >>> id(l1)
+    1726619371200
+    >>> id(l2)
+    1726619371200
+    >>> l2 = l1[:]
+    >>> id(l2)
+    1726619379712
+    >>> l1[1] = 200
+    >>> print(l1)
+    [1, 200, 3, 4]
+    >>> print(l2)
+    [1, 2, 3, 4]
+    >>> print(l3)",-0.1972,Negative,0.019,0.032,0.949
+1jdavxk,Generally we would disable the title bar and create our own. An example here [https://github.com/Wanderson-Magalhaes/Modern\_GUI\_PyDracula\_PySide6\_or\_PyQt6](https://github.com/Wanderson-Magalhaes/Modern_GUI_PyDracula_PySide6_or_PyQt6),0.2732,Positive,0.13,0.0,0.87
+1jcyw88,"Very general rule of thumb: if the structure is something where I want to use the name of something as the key, I use a dataclass instead of a dictionary with strings. If I am using a structure that mimics an else-if, I use a dictionary instead.
+
+To answer your question, one cool thing about dataclasses is you know all your keys ahead of time, and your IDE can help you ensure you use the right one and don’t misspell it.",0.7845,Positive,0.114,0.0,0.886
+1jcyw88,"When creating a dataclass object you are forced to initialize the specific attributes in the class definition, leaving less room for error. Your IDE will list those attributes with autocomplete on your dataclass object. Dataclasses can also contain methods, operators, etc. just like a normal class.",-0.1868,Negative,0.094,0.108,0.798
+1jcyw88,"Dictionaries are for unstructured data. 
+
+Dataclasses are for structured data.",0.0,Neutral,0.0,0.0,1.0
+1jcyw88,"Not a single person has mentioned memory yet..
+
+If you use a `dataclass`, specifically with `slots=True`, your memory usage can be significantly reduced. If you've got a handful of your sets of data, you won't care. When you've got a few hundred thousand or a few million, you'll appreciate that `dataclass` is much smaller.",0.0186,Neutral,0.052,0.05,0.898
+1jcyw88,"Basically any time I need to create multiple instances, I’m going with a dataclass over a dictionary. Or if attributes are going to be of different types. Or even just if I know the keys ahead of time. Really, any time I can reasonably use a dataclass over a dict I will",0.2732,Positive,0.047,0.0,0.953
+1jcyw88,"Rule of thumb: 
+
+    - You know exactly what keys you'll get => Dataclass
+    - You don't => Dict
+
+
+
+Dataclasses are **nicer from a user perspective** \- 
+
+You don't need to ask if it has a key - it always does, you can put in methods and other OOP-ish things, etc.
+
+
+
+Dicts are more flexible in terms of **keys**. 
+
+For example, if you have a sparse grid, like a 2d map of city blocks or a Minecraft 3d world, you can chuck in as big a map as your RAM allows using coordinates as keys - you could not do this in a Dataclass, because you cannot manually write out all possible coordinate tuples.
+
+
+
+Dicts are also more flexible in terms of **space**. 
+
+If your dataclass would need to have 30 Optionals, you will waste a ton of memory on all the Nones. With a dict, you only pay memory for the keys you use.",0.1989,Positive,0.047,0.041,0.912
+1jcyw88,"You 100% can just use dicts. You could also store everything as a string.
+
+Dataclasses come with some cool things like enabling default dunder methods and post init routes. That plus your normal benefits of classes.
+
+If you just need it to hold data, sure, use a dictionary. But if you want some default dunders, start doing input validation checks, modifications upon init, and behaviors for each of those inputs, you could prob opt for the dataclass.
+
+Not to mention a lot of validation libraries like pydantic and other ORMs will be based off these.",0.8201,Positive,0.118,0.0,0.882
+1jcyw88,"If you have the sort of structured data that makes sense to be stored in a dataclass, you _could_ store it in a dictionary. However, a dataclass makes things a lot more explicit for:
+* you working on the code - you will find it easier to read, especially if you come back to it after an interval 
+* someone else coming along later and reading your code
+* your IDE which is likely to be able to offer code completion and validation for the dataclass version 
+* Python itself, which will likely give better runtime error messages if you get something wrong",-0.0258,Neutral,0.056,0.057,0.887
+1jcyw88,"My rule of thumb:
+
+- If I’m making the objects myself, `@dataclass`.
+- If I’m parsing moderately-nested JSON, `typing.ThpedDict`",0.0,Neutral,0.0,0.0,1.0
+1jcyw88,"Read the docs. The dataclass decorator automatically generates special methods for your class including __init__() and __repr__(). If that's useful to you, use dataclass.",0.6808,Positive,0.203,0.0,0.797
+1jcyw88,"In general, you shouldn't be substituting one for the other. A dictionary is a container, a dataclass is an object; while common, the use cases should be completely different.
+
+A dictionary *should* map exactly one type to exactly one type. Simply, it should only store strings, or only ints, but more specifically, those strings or ints should be the same *type* of data. I.e., storing a list of student grades is good--they're all grades--but storing a name, an address, and a city is a flag you should be using something more sophisticated than a dictionary. Even though they are all strings, they're not actually the same type of data. A dictionary is a collection, so it would be very common to store objects **in** a dictionary, but not equate them.
+
+A dataclass is an object, which *should* be a type. A type is not a collection of types, but instead a ""merging"" of several pieces of data into a *single* type. A dataclass should be related more to a NamedTuple in your mind than a dictionary.
+
+Note that the prevalence of JSON has made the boundary between these two very blurry because JSON uses the dict *syntax* to serialize objects. However, keep in mind that JSON is a ***serialization language***, not Python, and the rules for the two shouldn't be confused.
+
+So: multiple different pieces of data that together define one thing: a dataclass; multiple similar pieces of data that are part of a single collection: use a collection type--which includes dictionaries.
+
+See also [this post](/r/learnpython/comments/1j4ia9n/when_should_i_use_a_list_dictionary_tuple_or_set/) where I go more into depth about types vs. collections, and should help explain the ""more like a tuple"" comment above.",0.9323,Positive,0.057,0.008,0.935
+1jdhm2k,">  Pop and append are atomic operations they will work fine. 
+
+I think you confused processes and threads. For separate processes the memory is not shared, so even though pop and append are atomic they are working on different lists, so they will not work fine. I don't know the internals of celery but it sounds like these are processes, so you need something like https://docs.python.org/3/library/multiprocessing.shared_memory.html or https://docs.python.org/3/library/multiprocessing.html#multiprocessing.Queue or https://docs.python.org/3/library/multiprocessing.html#multiprocessing.Pipe",0.7296,Positive,0.127,0.043,0.83
+1jdhm2k,"You can use a shared memory store like Redis to store your list. Your celery task can retrieve the list from Redis, update it as needed and then write it back. If you are concerned about different tasks updating the list at the same time and one task overriding another task’s update, you can inplement a lock which will prevent multiple tasks from working on the list at the same time.
+
+You can also use another shared memory store, a database or a file on disk to store your list. Whatever option you choose, make sure that there’s no conflicting concurrent update.",0.5859,Positive,0.1,0.046,0.854
+1jdhm2k,Consider storing the pop values in a separate list and the append values in their own list.  Return these lists to the calling program and have it do the modifications.  You'll have to decide what happens if there is both an append and a pop.,0.6597,Positive,0.116,0.0,0.884
+1jd4k0p,"First, explain why you need dependency injection *specifically*. It tends to be used a lot less on dynamic languages like Python because it's easy to swap things out at runtime. What, exactly, do you need it for?",0.7732,Positive,0.19,0.0,0.81
+1jd4k0p,"I think you have background in C#/Java and try to work in Python in exactly the same way, which kind of defeats its purpose (simplicity - readability - conciseness).",-0.3804,Negative,0.0,0.094,0.906
+1jd4k0p,"My opinion is that Dependency Injection isn't a concept that applies well to Python. I've seen people try to force it in, arguing that it helps testing, but it generally makes your code look like AngularJS.",0.5574,Positive,0.167,0.051,0.783
+1jd4k0p,"I am using the Registry in Arkalos project:
+
+[https://arkalos.com/docs/registry/](https://arkalos.com/docs/registry/) 
+
+Simple, minimal and intuitive when I just want to register (bind) a class as a singleton.
+
+Then I can have a helper function (facade) in app.core to help me retrieve it from the registry.
+
+\-
+
+Let say I have app.utils.rpc.MyRPC class
+
+\-
+
+in app/bootstrap.py (or your custom bootstrapping logic):
+
+Registry.register('rpc', MyRPC)
+
+\-
+
+in app.core.rpc.py:
+
+def rpc():  
+  return Registry.get('rpc')
+
+\-
+
+then at the top of your server or script:
+
+import app.bootstrap  
+app.bootstrap.run()
+
+\-
+
+Now you can just
+
+from app.core.rpc import rpc
+
+rpc().stuff()",0.7351,Positive,0.094,0.0,0.906
+1jdfp7o,"Try checking the result of [this API call](https://developer.spotify.com/documentation/web-api/reference/get-a-list-of-current-users-playlists) 
+
+Maybe the desired playlists are amongst the results.",0.2732,Positive,0.123,0.0,0.877
+1jd89j6,"There is no best. People like different things.
+ Check out the wiki to get suggestions already made. You can also search the subreddit.
+
+https://www.reddit.com/r/learnpython/wiki/index
+
+Certificates are pretty pointless.",0.8271,Positive,0.274,0.061,0.665
+1jd89j6,"The best certification is a CS degree.
+
+Beyond that for the sake of learning Harvard CS50, MOOC - University of Helsinki course and I have a [Python and Data Science](https://www.udemy.com/course/python-foundations-for-data-science-from-zero-to-data-analy/?couponCode=FEB2025-PYTHON) course that starts from scratch all cover plenty of material.
+
+You will learn the most from yourself by coding and solving problems. Use the above resources for theory and some practice.",0.5994,Positive,0.104,0.043,0.853
+1jd89j6,[removed],0.0,Neutral,0.0,0.0,1.0
+1jd7mb4,The code ? Pls mask the username/password/server details,0.0772,Positive,0.178,0.0,0.822
+1jd7mb4,"Use uv with Arkalos with a Jupyter extension for VS Code:
+
+Install it and create a new project, then there is a guide for notebooks:
+
+[https://arkalos.com/docs/notebooks/](https://arkalos.com/docs/notebooks/)
+
+\-
+
+To add mysql to your project:
+
+uv add mysql-connector-python
+
+\-
+
+Then create a module in app folder for mysql
+
+And import it at the top of your notebook.",0.6124,Positive,0.111,0.0,0.889
+1jd7mb4,"How did you install the `mysql-connector-python` package for Jupyter/Python to use?
+
+I'd expect to see, if in a Python virtual environment,
+
+    pip install mysql-connector-python
+
+or in a base environment (not a good idea), either, for Windows,
+
+    py -m pip install mysql-connector-python
+
+or for macOS or Linux,
+
+    python3 -m pip install mysql-connector-python
+
+Then your code would need to `import` that package.
+
+Example:
+    
+    import mysql.connector
+    
+    try:
+        # Replace with your MySQL server details
+        mydb = mysql.connector.connect(
+            host=""your_host"",  # e.g., ""localhost"" or an IP address
+            user=""your_user"",
+            password=""your_password"",
+            database=""your_database""
+        )
+    
+        print(""Connection successful!"")
+    
+        # Now you can execute SQL queries
+        mycursor = mydb.cursor()
+        mycursor.execute(""SELECT * FROM your_table LIMIT 5"") #example query
+    
+        myresult = mycursor.fetchall()
+    
+        for x in myresult:
+            print(x)
+    
+    except mysql.connector.Error as err:
+        print(f""Error: {err}"")
+    
+    finally:
+        if 'mydb' in locals() and mydb.is_connected():
+            mycursor.close()
+            mydb.close()
+            print(""MySQL connection is closed"")
+
+Please share your code showing the `import` and how you've set things up.
+
+PS. I don't recommend putting so much code inside of a `try` block - this is just to illustrate.",0.3983,Positive,0.049,0.032,0.919
+1jdl84i,"Learn Python user with no actual knowledge or Python or desire to learn got GPT to spout out some garbage and then expects us to troubleshoot for them?
+
+Standard stuff.",0.3182,Positive,0.134,0.065,0.801
+1jdl84i,I’m starting to wonder if ChatGPT just posts on Reddit and then it sends back the fixed code to the user.,0.0,Neutral,0.0,0.0,1.0
+1jdl84i,Fix your indentation. Python uses indentation to denote blocks of code and requires it to be correct. The error should tell you where it is failing.,-0.7845,Negative,0.0,0.256,0.744
+1jdl84i,"Terrible code...
+
+* Obviously trained on old code the way it calls the ""register"" function
+* If you desaturate, the values of the R/G/B channels are equal and already the brightness. No point in averaging them. 
+* What you should average is a block of pixels (using the pixellize function), before you posterize. 
+* Then you take any pixel in the block
+* Also, the `""*""` means that the script works on any kind of image, but desaturate and posterize won't work on color-indexed ones, so your probably want to replace that by `""RGB*""`",-0.2627,Negative,0.058,0.08,0.861
+1jdc8lf,paid ? [https://openweathermap.org/price](https://openweathermap.org/price),0.0,Neutral,0.0,0.0,1.0
+1jd7wpo,"Git is version control, its job is to track all of the changes not just store the final product. Start committing from day 1 of the project, if you have already done some work on it without committing then commit now, and continue committing frequently whenever you change something.",0.0031,Neutral,0.078,0.038,0.884
+1jd7wpo,Day one. Put all that ugly code on GitHub day one.,-0.5106,Negative,0.0,0.248,0.752
+1jd7wpo,"Also, you don't need to rely on GitHub/GitLab, you can just create your own local repository.",0.2732,Positive,0.123,0.0,0.877
+1jd7wpo,"Start sooner rather than later. Git may help you as you develop your project and decide to try things out.
+
+---
+
+Keep in mind that `git` and `GitHub` are not the same thing.
+
+GitHub is very popular, but there are many alternative accessible repositories that support the git protocol, including Gitlab and Bit Bucket.
+
+There are also self-host options using, for example, [Gitea](https://about.gitea.com/products/gitea/) or [GitLab Community Edition](https://gitlab.com/rluna-gitlab/gitlab-ce).
+
+Git was originally created (by the same person that created Linux) as the Version Control Software (VCS) market offerings were very expensive at one time (as was the case with Unix). There are competing options, including Apache Subversion and Mercurial.   
+
+It is important and useful to learn to use VCS early on to help with code development, making it easier to experiment and try different things out. The public repositories are also a great learning resource.
+
+The public repositories can also be a useful learning resource, although the risk in learning from these repositories is that they often contain huge amounts of bad practice (in terms of project setup and repository structure, rather than the code itself). There is no doubt a list somewhere of great example projects you could review, but I have not looked.",0.984,Positive,0.183,0.056,0.761
+1jd7wpo,"Remember never to commit any type of password or secret key to git, this is one of the most common mistakes made by those new to git. If your project is public, the whole history is also public, so even if you later remove the password, it's still there.",-0.5671,Negative,0.0,0.09,0.91
+1jd7wpo,"hence it's very helpful and a good practice to keep the commits focued on a feature. Then when you maybe need to revert a change you only alter that particular piece of code.
+
+This also helps preventing feature creep of commits. At first it might be counter-intuitive, but in the long run it's a very good habit.",0.849,Positive,0.207,0.018,0.775
+1jd7wpo,"- git and GitHub are different. GitHub is essentially hosted git, with some extensions and a pretty interface.
+- you can push to GitHub on private projects.
+- there’s not much value in pushing things that don’t work (exception when you want someone else to look at it and fix errors)
+- branches are good things, not everything has to be on main
+- private projects can use GitHub as offsite backup or deployment mechanism, collaboration isn’t necessary.
+- having a history that tells when and why individual lines were changed is very useful 
+
+At the moment I’m using GitHub as a partially as a backup for a personal project ( https://github.com/dthoreau/libris ) , partially as a place for code samples while I look for a new job",0.8204,Positive,0.089,0.017,0.894
+1jd7wpo,"Are you working on a ""secret"" project? Is it going to be an application you want to earn money with? Is it part of a thesis, or any plans to file a patent based on your source code?
+
+You can use GIT locally (on the same machine) or within your network at home/company without pushing your code to ""the public internet"".
+
+You can use GIT in ""the public internet"", but mark your project as ""private"".",0.1754,Positive,0.023,0.0,0.977
+1jd7wpo,"thank you all im just an old dog trying to learn new things, and tbh i dont even know if i can class it as my own project since all ive done is take some ones jupyter notebook and made it my own :/",0.0258,Neutral,0.056,0.053,0.891
+1jd7wpo,"You can use Git without pushing your project to a remote server such as GitHub or GitLab at all, by just running `git commit` but not`git push`. If you do want a backup of your local repository, but you need to keep the code secret, you can also create private repositories on most Git services.
+
+Never add any passwords or other sensitive information to a Git index that might get published at some point.",0.4767,Positive,0.056,0.0,0.944
+1jdb07k,"Before making your code more complex, it might be a good idea to simplify the code that you have already written and reduce the amount of duplication.
+
+A couple of examples:
+
+---
+
+    if game_state == ""loadingScreen""
+
+This is only true on first run, so there is no need for the conditional - just put the code block before the game loop.
+
+
+---
+
+This block of code is redundant:
+
+
+    # Buttons
+    englandButton = 0
+    belgiumButton = 0
+    hungaryButton = 0
+    portugalButton = 0
+    slovakiaButton = 0
+    franceButton = 0
+    croatiaButton = 0
+    germanyButton = 0
+    romaniaButton = 0
+    turkeyButton = 0
+    albaniaButton = 0
+    czechiaButton = 0
+    italyButton = 0
+    scotlandButton = 0
+    spainButton = 0
+    austriaButton = 0
+    denmarkButton = 0
+    netherlandsButton = 0
+    serbiaButton = 0
+    switzerlandButton = 0",-0.3744,Negative,0.06,0.087,0.853
+1jdb07k,"Ideally, you'd build inheritance (and composition) directly into the design of your program when you are defining your classes, rather than after-the-fact, since this might require some serious reworking. That being said, you should take some time to decide if inheritance makes sense for your project, and if so, what classes would benefit from this.
+
+Some other things not related to OOP that you might want to consider:
+
+- all of those team and teamXpoints variables don't appear to be used anywhere
+- those multiple loops inside of tornementPlanDisplay and pointsTableDisplay can be reworked into functions to avoid duplication (the only thing changing is the group)
+- you can rework your state manager into functions to avoid duplication (e.g. you call the same event loop multiple times inside of different if branches)",0.34,Positive,0.052,0.042,0.906
+1jcw7mn,"The coloring is definitely really nice since it helps divide things visually, but what I really lean on is basic linting
+
+Oops I misspelled that variable.  Oh here's an import or variable I added but don't use.  I left off a required parameter to this function.  Those are things that used to eat up time because I'd gloss over them and not notice until I ran it, or maybe never notice
+
+(I am currently re-writing some very old code written in the before times when syntax highlighting itself was fairly new but common, i.e. the mid-1990s, and holy shit it is FULL of variables I am not using.  Probably I was once using them and refactored, or thought I'd need them but didn't)",-0.2967,Negative,0.047,0.04,0.913
+1jcw7mn,I find that syntax highlighting is very helpful... but I managed to write code just fine without it for many years before it was a thing.,0.296,Positive,0.091,0.0,0.909
+1jcw7mn,"In my experience, it makes it much much easier to catch mistakes.
+
+It can write code either which way, doesn’t make much difference in actually writing it, 
+
+But in my colour scheme, variables are blue and functions are yellow. If I write something that I’m expecting to be a particular thing, and it doesn’t highlight in the colour I expect, I know that something is wrong.
+
+It helps me catch a lot of syntax and formatting errors, that would be more difficult to catch through error messages alone.
+
+Also the auto formatting is helpful, particularly the auto indent.",-0.7677,Negative,0.106,0.165,0.729
+1jcw7mn,A lot,0.0,Neutral,0.0,0.0,1.0
+1jcw7mn,"Almost all of a programing language design is about making it easier to write and maintain code.  Code is how programmers tell other programmers what they want the computer to do.  Things like white space, indentation, good identifier choice, comment style, module and API design all exist to help people understand what the code is intended to do.
+
+Programmers worked for decades with punch cards and hard copy terminals, then plain text terminals.  It worked. And worked well enough.  But there were gaps and opportunities for improvement.
+
+Syntax highlight, formatters, spell check, snips libraries, and now, AI assistants all make the programmers job easier.
+
+I say take advantage of all the improvements you can.",0.9766,Positive,0.229,0.009,0.762
+1jcw7mn,"Listen, people used to survive without indoor plumbing, and some still do today, but today it’s really table stakes for a livable environment and I don’t see any reason to look back.",0.0,Neutral,0.0,0.0,1.0
+1jcw7mn,i think even the color scheme notably impacts my enjoyment of the coding experience. the right color scheme just makes interacting with the code more pleasant.,0.8016,Positive,0.238,0.0,0.762
+1jcw7mn,"That's very much a personal thing. That's why there's no ""best editor"". Different people prefer different things. Some people find it distracting to have lots of colour variance, coloured indentation levels, coloured *bracket* pairings, etc. Even code completion (so they must love the addition of AI capabilities). Others do like these things, in varying degrees.
+
+I like PyCharm, it is my primary tool for development of Python code, and I use all the aids I can get these days. I am though also happy to edit files quickly using VIM. YMMV.",0.9287,Positive,0.17,0.044,0.786
+1jcw7mn,[deleted],0.0,Neutral,0.0,0.0,1.0
+1jcw7mn,"I had the benefit of learning in an era when these things either didn't exist or were in their infancy (Vim has had syntax highlighting for ages, but it's not simple to configure). It's allowed me to appreciate what I have.
+
+Having an IDE point out that you've missed a space or a semicolon is a wonderful thing and I appreciate it all the more when I have to remote into a system and rely on the default vi install instead of having all the fancy features that come with a modern IDE. 
+
+It's not like things never got created before modern IDEs, just that they help make everything run smoothly. The reason I got into software development is because I'm a lazy man who hates repetition. Hitting the auto format button makes me more efficient.",0.8468,Positive,0.145,0.097,0.757
+1jcw7mn,"There is a limit to how much code you can write before it becomes un-debuggable. That is, if you average X errors per line of code, eventually you will have accumulated so many errors spread across so much code that debugging one large block of code becomes more work than debugging two smaller blocks of code.
+
+So the more errors you can catch *before* debugging, the more efficient your coding process. This is what formatting, coloring, linting, and type checking are for--to catch errors fast enough that they are obvious *while you are still typing that line of code*. That is, a spellchecker vs a proofreader.",-0.8522,Negative,0.027,0.128,0.844
+1jcw7mn,"In a professional environment, it won't be uncommon to enforce formatting and linting as a pre commit hook. If the editor can do it as I go, all the better.
+I personally find it very useful when my editor tells me of an unknown module/variable (through linter) and can automatically add the import.
+
+If you're asking about syntax highlighting only, it surely makes reading code easier, even the one you just wrote. It is certainly easier than no highlight at all, as long as it's not too distracting.",0.96,Positive,0.236,0.022,0.742
+1jcw7mn,"I have ADHD and syntax highlighting is an accessability feature for sure. I can code without it, but it would slow me down to like 5% speed.
+
+Linters and inline documentation are way more important though.",0.7607,Positive,0.196,0.0,0.804
+1jcw7mn,"For learning it helps a lot. But eventually you will need to force yourself to write in notepad or word docs so you actually remember all of the functions, methods etc..
+
+I never seem to remember how to link a css stylesheet. Always forget all of the syntax.",-0.1406,Negative,0.038,0.05,0.912
+1jda2lt,"Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow by Aurélien Géron is kind of the bible to learn anything about ML.
+
+Introduction to Machine Learning with Python by Andreas C. Müller also seems good, not recommended too often but once you start browsing sk-learn documentation you will see his name pop-up in several articles.
+
+They are a bit old but they focus on sk-learn package and that still the main package for pre-processing data and the traditional ML models. Once you get a good intuition you can move on the newer methods you want to implement.",0.7144,Positive,0.074,0.013,0.913
+1jda2lt,"Are you able to use something like Microsoft Copilot Studio if your organisation has access to it to create custom AI agents? Learning to implement AI in code is difficult and not something you can do without first devoting significant time into learning to code and learning a solid amount of maths. If you do want to learn AI development in Python, start by learning Python with any of the many beginner-level python courses like CS50 or the University of Helsinki MOOC.",0.33,Positive,0.112,0.074,0.814
+1jd9n3w,"There is no ""get() method in Python"" as though it were a universal feature of the language. Each class defines its own methods, and two methods with the same name in different classes are entirely separate from each other. 
+
+As for the get() of a dictionary, this writeup is short and to the point. https://www.w3schools.com/python/ref_dictionary_get.asp
+
+get() on a dictionary returns the value of the key you specify (like mydict[key] does). But if the key doesn't exist, it returns None (instead of throwing an exception), or you can specify what value to return in that case via an optional second argument.",-0.0129,Neutral,0.047,0.047,0.906
+1jd9n3w,"https://docs.python.org/3/library/stdtypes.html#dict.get
+
+get(key, default=None)
+
+""Return the value for key if key is in the dictionary, else default. If default is not given, it defaults to None, so that this method never raises a KeyError.""",0.34,Positive,0.072,0.0,0.928
+1jd9n3w,"This is one way to use it:
+
+    my_counter = dict()
+    numbers = [1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 5]
+    for num in numbers:
+        my_counter[num] = my_counter.get(num, 0) + 1
+
+  
+Dictionaries raises `KeyError` if key does not exist in the dictionary. `dict.get` lets you provide a default value for when the key doesn't exist, so you don't get an exception. In the above example, we return 0 if the key does not exist. 
+
+This pattern has largely been replaced by defaultdict. But `dict.get` is still useful in some very niche cases.",0.6757,Positive,0.059,0.0,0.941
+1jd92be,"You can't just ask for the max of a list of strings. What would that mean? So we need to tell Python exactly how to sort the list so that we can take the first item, and we do that by telling it to use the `len` function as the key to sort by.",0.0,Neutral,0.0,0.0,1.0
+1jd92be,"This is where looking at the python documentation is useful:
+
+[max(iterable, *, key=None)](https://docs.python.org/3/library/functions.html#max):
+""There are two optional keyword-only arguments. The key argument specifies a one-argument ordering function like that used for list.sort(). The default argument specifies an object to return if the provided iterable is empty. If the iterable is empty and default is not provided, a ValueError is raised.""
+
+That's a bit impenetrable, but whats happening is that the `max` function has been told: ""apply this `len` function to each item in the list, and return the item in the list with the largest result of that function."", i.e. the max function makes an internal list like this:
+```
+lengths = [len(w) for w in words]
+```
+and returns the corresponding word for the largest length.",0.2023,Positive,0.054,0.063,0.883
+1jd92be,"Have you tried the docs? [https://docs.python.org/3/library/functions.html#max](https://docs.python.org/3/library/functions.html#max)
+
+Max just takes an iterable and returns the biggest thing. In the example you've provided, it determines that by using the len function.
+
+You could just as easily write your own code to iterate over a list if you wanted.
+
+    def longest_word(sentence):
+        biggest_word = """"
+        for word in sentence.split():
+            if len(word) > len(biggest_word):
+                biggest_word = word
+        return biggest_word 
+
+    >>> longest_word(""The fox jumps over the lazy dog"")
+    'jumps'",-0.0258,Neutral,0.033,0.035,0.932
+1jd92be,can u use code blocks pls,-0.1531,Negative,0.21,0.306,0.484
+1jd918e,"The assignment `otherfile.abc = 5` creates the variable (name). If instead you simply tried to `print(otherfile.abc)` before the assignment, you would get an error.
+
+`otherfile` is in your *namespace* following the `import` so you can add attributes to it as you wish (not necessarily a good thing).",0.6124,Positive,0.15,0.053,0.798
+1jd918e,"Why shouldn't it work, in your opinion? You create the attribute `abc`, so there is no error. 
+
+
+You can use a linter like ruff or a type checker like mypy to highlight issues.",0.5165,Positive,0.24,0.13,0.63
+1jd918e,"You declare the variable via otherfile.abc = 5 and then the variable exists, so it can be printed. I don’t have the answer for your highlighting question though.",0.0,Neutral,0.0,0.0,1.0
+1jd2fts,"> Is that really necessary?
+
+Without a WSGI server, every request would need to start a new Python process, making the app slow. A WSGI server keeps the Python app running and handles requests efficiently. So, you do need an WSGI server like gunicorn or uwsgi.
+
+WSGI servers typically run on unprivileged ports (e.g., 8000 or 8080) because binding to standard ports 80 (HTTP) and 443 (HTTPS) requires root privileges. So, if you want your app to be accessible via normal HTTPS, you need to proxy it through nginx.
+
+Nginx also serves static files more efficiently and provides other important benefits, such as handling slow clients without blocking your app and securing your application by terminating HTTPS.",0.9513,Positive,0.168,0.0,0.832
+1jd2fts,"WSGI is just a protocol that (usually/always?) python uses to host web services
+
+Yes, you do have to use it.  Is it a big deal, nah?  You just run uwsgi or gunicorn (or uviciron for async), point it at your python app and it basically acts like an interpreter that runs your web service.  Both options have a lot of ways to run multiple instances of your app, using processes, threads, gthreads, etc.
+
+Javascript frameworks tend to just serve up http servers directly.  It's just a different approach but it's not... really that different?  For JS you run ""node ./src/index.js"" and for python you run ""gunicorn"" with the path to your app.
+
+WSGI doesn't go ""between"" nginx and your python app.  WSGI \*serves\* your python app",0.4479,Positive,0.033,0.01,0.957
+1jczixg,"I don't know anything about CTk or it's Combobox.  However, you get() txt (a StringVariable), but you don't set() it to anything, so there is nothing to get.  The following works in tkinter, using an Entry instead of CTk's Combobox.
+
+    import tkinter as tk
+
+    def generate_txt(txtg):
+        return(""This is the option: "" + txtg)
+
+    root = tk.Tk()
+    txt = tk.StringVar(value = ""optionA"")
+    txt.set((""optionA"", ""optionB""))
+    ddm = tk.Entry(root, textvariable = txt)
+    ddm.pack()
+    instructs = tk.StringVar(value = generate_txt(txt.get()))
+    label = tk.Label(root, textvariable = instructs)
+    label.pack()
+    root.mainloop()",0.0,Neutral,0.0,0.0,1.0
+1jczixg,"UPDATE: I got the solution. For anyone else interested, here it is:
+
+    import tkinter as tk
+    from tkinter import ttk
+    
+    def generate_txt(txtg):
+        return ""This is the option: "" + txtg
+    def update_instructs(instructs_ui, txt_ui):
+        instructs_ui.set(generate_txt(txt_ui.get()))
+    def main() -> None:
+        """"""
+        :rtype: None
+        """"""
+        root = tk.Tk()
+        txt = tk.StringVar(value=""OptionA"")
+        print(txt.get())
+        instructs = tk.StringVar(value=generate_txt(txt.get()))
+        ddm = ttk.Combobox(root, values=[""OptionA"", ""OptionB""],  textvariable=txt)
+        ddm.bind(""<<ComboboxSelected>>"", lambda event: update_instructs(instructs, txt))
+        ddm.pack()
+        label = ttk.Label(root, textvariable=instructs)
+        label.pack()
+        root.mainloop()
+
+You want to use the bind method to update the stringvar because the .set() method isn't called when you simply update the txt stringvariable, as this method is only called with widgets. At least I think that's what's going on.
+
+Edit: You can GENERALIZE this like follows:
+
+    def generate_txt(txt_gt):
+        return ""Generated Text: "" + txt_gt
+    def update_tkvar(tkvar, new_val):
+        tkvar.set(generate_txt(generate_txt(new_val)))
+    def main():
+        ...
+        widget.bind(""<ActionCommand>"", lambda event: update_tkvar(tkvar, txt.get()))
+        ...
+
+where txt is the tkinterVariable, tkvar is the tkinterVariable based on txt.",0.8006,Positive,0.064,0.0,0.936
+1jcvb3n,"does it have to be finger-level granularity? if not, you could potentially collect the kind of data you're looking for by gesturing while holding your phone",0.0,Neutral,0.0,0.0,1.0
+1jcvb3n,Maybe you need an old XBox Kinect device?,0.0,Neutral,0.0,0.0,1.0
+1jco217,"I usually leave the computer and go to my basketball hoop. When I worked in an office, I would pace. Blood flow physically helps. Also sometimes I just put it aside for a day or two. 
+
+Then I write. I find the design doc process really helpful:
+
+1. What is the system I'm dealing with? 
+2. What am I trying to achieve? 
+3. What are all the potential solutions I can come up with? 
+
+If this doesn't get me to an answer, it lays out all the information to be able to ask someone else for help. And if it _does_ get me to an answer, it helps me explain why I ended up there when I'm presenting the code for review.",0.9008,Positive,0.11,0.01,0.88
+1jco217,"Usually I just bang my head against the wall until it's solved but of course that's not really a good strategy.
+
+Often I will commit my current progress and work from a new branch where I scrap basically everything and just start the problem over. It helps me develop a fresh perspective, and usually it doesn't involve writing as much code as your brain might tell you does -- 90% of solving these problems is usually thinking about them.
+
+Rarely, but usually effective, I will write out code agnostic, logical steps on paper. Not quite pseudo code.",0.3889,Positive,0.157,0.125,0.718
+1jco217,Break it down into smaller individually solvable problems then put it all together and make it work.,-0.4019,Negative,0.0,0.144,0.856
+1jco217,"If I'm having trouble no matter how many times I go through things in my head and on the computer, I take it outside of my head and the computer.
+
+Sometimes I actually write down the process I want on paper. Often, I write down, and then follow it verbatim and I'll be like ""oh, I missed that"", or "" It should be doing the thing here, why isn't it.""
+
+Sometimes I will talk it out, also known as rubber duck debugging.
+
+You can mix and match and do a little bit of writing and then talk it out as you go through it.  
+
+You can usually find either an issue in your logic I'll learn something you need to learn, or somewhere you need to put a logging / debug statement to get more information.",-0.4939,Negative,0.037,0.054,0.908
+1jco217,"I like to go back to the high level overview and re processed the flow from the beginning to the end, writing a flow diagram and some pesudocode. 
+
+90% of the time, repeating this help me massively in spotting possible issues or simply if my approach is wrong. 
+
+Actually, every time I start to code without doing this, I ended up having to go back and do it so now I always start with that. If I know from the very beginngin where and how I'm starting and where and how I'll finish, I can lay down each step in a high level way and treat each step as a single, smaller problem to solve.",0.5147,Positive,0.087,0.05,0.863
+1jco217,"Pseudocode is good. Resting is also good. Solving on paper too (specially because it has arrays, try drawing!)",0.8172,Positive,0.361,0.0,0.639
+1jco217,"Multiple things come to mind.
+
+Paper and pen graph/map out your problem.
+
+Rubber duck debugging/programming: Explain your problem to a rubber duck  (or a collegue,your cat, your grandma,...). I can't count the number of time I solved an issue while calling a colleague for help.
+
+Naps/sleeping/meditation/take walk. The mental reset strategy.
+
+Breaking down each steps into a function can help or creating a function and adding new part of the solution iteratively can help gradually reducing complexity.
+
+All of these have worked for me at different times on different projects.",0.7951,Positive,0.154,0.069,0.776
+1jco217,"ask gpt for help but tell it explicitly not to give you the answer. i have been doing this for a hot minute. it doesn’t run out of patience and can usually point out what you’re doing wrong and ***why*** what you’re doing is the wrong approach. i’m curious if you can make it help you socraticaly, like a teacher does, where it guides you by asking you questions…. boot dot dev’s bot does, idk if gpt and grok can",0.1779,Positive,0.127,0.108,0.765
+1jco217,"Walk away from the screen for a bit, and use a pen and paper then try again later.",0.0,Neutral,0.0,0.0,1.0
+1jco217,"I usually go for the rubber ducky method. Find a rubber duck, stuffed animal, whatever, then explain what the code is doing line by line out loud. Usually, you'll hear something that doesn't make sense as you say it.",0.0,Neutral,0.0,0.0,1.0
+1jco217,You do have to ask ChatGPT for the solution. You can ask for advice or examples. Sometimes seeing other example will help me think of the solution.,0.743,Positive,0.233,0.0,0.767
+1jco217,"https://archive.org/details/polya-how-to-solve-it
+
+https://en.wikipedia.org/wiki/How_to_Solve_It",0.0,Neutral,0.0,0.0,1.0
+1jco217,"I’d say it depends on what makes the problem difficult. For instance if you were constructing a language parser one of the most difficult parts might be handling the enormous amount of edge cases and handling introducing new language rules that might break existing rules. For a problem like this I’d approach the problem with TDD. There are other difficulty domains too such as performance, security, logical complexity, problem size, stringent deadline, etc.
+
+If the problem is difficult because it’s logically complex as it sounds is your case I typically do the basics as others suggested (break into pieces, take breaks, consult others, etc.).
+
+One I might add I haven’t seen suggested: Get a single hardcoded case to work. It’s easier to focus on a single case without worrying about all “well what if the input is structured this way” type of thoughts. In my experience solving 1-3 hardcoded cases lends itself to revealing the general solution (or at least sheds light on it) about 70-80% of the time.",-0.8387,Negative,0.078,0.127,0.795
+1jco217,"You've got the right idea. Small steps are good, as is knowing roughly what needs to be done. This is something you'll get better at in the future.",0.7003,Positive,0.182,0.0,0.818
+1jco217,Take piece of paper and write down all the requirements for this specific function. Then write semi-pseudo code.,0.0,Neutral,0.0,0.0,1.0
+1jczvuy,"It's actually even weirder than it appears
+
+Like, I messed around with this a bit, and the last thing I've tried is settings room_1 2 and 3 to the exact same set of data - i.e. comment out room_2 and room_3 and make new ones that are just the same as room_1, like
+
+    room_1 = ItemPilesInRoom(((0, 1, 2, 3), (4, 5, 6, 7), (8, 9, 10, 11), (12, 13, 14, 15)))
+    room_2 = ItemPilesInRoom(((0, 1, 2, 3), (4, 5, 6, 7), (8, 9, 10, 11), (12, 13, 14, 15)))
+    room_3 = ItemPilesInRoom(((0, 1, 2, 3), (4, 5, 6, 7), (8, 9, 10, 11), (12, 13, 14, 15)))
+
+This *still* makes a set with 3 items, not 1 like I'd expect.  I tried with or without the sorting step, which shouldn't matter.  Tried sorting only at the point the hash is generated, doesn't matter.
+
+I verified that when you create the set, it calls the hash for each object, and that the hash is what we expect
+
+At the moment, I don't know how to explain this except that set() does not seem to operate the way I'd expect it to.",0.6759,Positive,0.052,0.033,0.915
+1jczvuy,"OK I think I figured it out.  I looked at the docs for \_\_hash\_\_
+
+""The \_\_hash\_\_() method should return an integer. The only required property is that objects which compare equal have the same hash value""
+
+Once I added \_\_eq\_\_ to the mix it does what you'd expect
+
+    def __eq__(self, other):
+        return hash(self) == hash(other)",0.6523,Positive,0.098,0.0,0.902
+1jczvuy,"I think you've solved the issue, but another thing I'll point out: since the order of the piles in the room doesn't matter, why not use an unordered collection to store them? Probably a `frozenset` since you need to hash the collection itself in addition to the items inside it.",0.1126,Positive,0.032,0.023,0.945
+1jczvuy,"Shouldn't the last loop be ""for room in no_duplicates"" instead of ""for room in all_rooms""? 
+Or am I getting the issue wrong?",-0.5362,Negative,0.0,0.147,0.853
+1jczvuy,"What do you mean, you made them the same…so you when hash them they give you the same hash…",0.0,Neutral,0.0,0.0,1.0
+1jd3uh7,"Can you add the exact command that you run and probably also add the traceback? Use pastebin.
+
+This is expected behaviour in Scrapy and it would do you well to fix the issue eventually. Use an IDE where you can see the indents/spaces, sometimes the indentation is mixed with spaces and tabs, sometimes it is just plain wrong.",-0.25,Negative,0.034,0.051,0.915
+1jcwdxy,"The class doesn't hold any state. Therefore, it shouldn't be a class, even if ""menu"" is a noun. Just make these methods regular functions.",0.0,Neutral,0.0,0.0,1.0
+1jcwdxy,"To answer your question, the reason you're not going back to the ```main()``` function, is because the methods in Menus are circular (each method calls another method).
+
+The real problem with this code is that your Menus class isn't being treated as an object, but rather functions wrapped in a class. This is clear when you see that each method in your class doesn't take ```self``` as a positional argument in any method, and each method has a path that creates another instance of that class, but those instances aren't stored in a variable or attribute of the class and are garbage collected. 
+
+As another commenter suggested, just ditch the class and treat these as functions. If you want to use classes, then read up a little more on classes in python and how they differ from other languages.",0.714,Positive,0.077,0.035,0.888
+1jd38s1,"Swarm is a list of dictionaries, not the class. You're trying to call a function on something that isn't the class.",0.0,Neutral,0.0,0.0,1.0
+1jd38s1,"Well, the error is pretty self explanitory:
+
+> AttributeError: 'dict' object has no attribute 'result'.
+
+And indeed, dictionaries *don't* have an attribute you can call called ""result."" Why did you think that they did? Or did you not know that the members of `swarm` were dictionaries? You must know that, since you told us they were and you confirm that they are in your code.",0.1926,Positive,0.08,0.069,0.85
+1jd37cv,`import image_widgets import *` is not valid syntax.  I assume they meant `from image_widgets import *` however I'm not familiar with any library called image_widgets,0.0,Neutral,0.0,0.0,1.0
+1jcr8dy,"If you edited, it hasn't shown up. I've just had a go.",0.0,Neutral,0.0,0.0,1.0
+1jd1uw6,did you check that your Jupyter Kernel is the same Python environment ?,0.0,Neutral,0.0,0.0,1.0
+1jd4e6s,what error message,-0.4019,Negative,0.0,0.574,0.426
+1jd4e6s,"The stars function expects to be passed an integer as the variable n.
+
+At the bottom, you should replace n in stars(n) with a number.",0.0772,Positive,0.056,0.0,0.944
+1jd4e6s,"Hope this explanation helps: 
+
+The n in your function definition:
+def stars(n)
+Is a variable that can be accessed within the function. So by assigning a value to n when the function is called:
+stars(1) 
+Will make n have that value within the code of the function. Hope that helps, experiment a bit and comment or pm me if u have any questions",0.9363,Positive,0.246,0.0,0.754
+1jd4e6s,Don’t use while; change it to for loop to impress him.,0.4404,Positive,0.225,0.0,0.775
+1jd4e6s,"have you got the indentation correct? It's hard to tell because of the broken formatting in your post. See the right hand sidebar of this subreddit for formatting help, or this link:
+
+https://www.reddit.com//r/learnpython/wiki/faq 
+
+So, if the code is this...
+
+    def stars(n):
+        while n > 0:
+            print(""* "" * n)
+            n = n - 1
+            
+    stars(4)
+
+...then it will output this:
+
+    * * * * 
+    * * * 
+    * * 
+    *",0.34,Positive,0.103,0.078,0.819
+1jcuigq,"    print(f""{a}\nand\n{b}\nmultiplied becomes\n{a @ b}"")
+
+  
+you can add some line brakes. Or do you want the output flattened to a single line?",0.0772,Positive,0.067,0.0,0.933
+1jcuigq,"You could present a little better using `pprint`,
+
+    from pprint import pprint
+    import numpy as np
+    
+    a = np.array([[1, 2], [4, 5],[6,7]])
+    b = np.array([[5, 6], [7, 8]])
+    c = a @ b
+    
+    pprint(a)
+    pprint(b)
+    print('when multiplied becomes:')
+    pprint(c)
+
+but for full control, and something more like you see in books and journals, you need to do a lot more work.
+
+    import numpy as np
+    
+    def print_matrix_journal_style(matrix):
+        """"""Prints a NumPy matrix in a journal-style format.""""""
+    
+        rows, cols = matrix.shape
+    
+        # Format each element as a string with consistent spacing
+        formatted_rows = []
+        for row in matrix:
+            formatted_row = [""{:.3f}"".format(val) if isinstance(val, float) else str(val) for val in row]
+            formatted_rows.append(formatted_row)
+    
+        # Calculate column widths
+        col_widths = [max(len(val) for val in col) for col in zip(*formatted_rows)]
+    
+        # Print the matrix
+        for row in formatted_rows:
+            print("" "".join(val.rjust(width) for val, width in zip(row, col_widths)))
+    
+    # Example usage:
+    a = np.array([[1, 2], [4, 5],[6,7]])
+    b = np.array([[5, 6], [7, 8]]) 
+    multiplied = a @ b
+    
+    print(""Matrix a:"")
+    print_matrix_journal_style(a)
+    
+    print(""\nMatrix b:"")
+    print_matrix_journal_style(b)
+    
+    print(""\na @ b (multiplied matrix):"")
+    print_matrix_journal_style(multiplied)",0.8516,Positive,0.07,0.0,0.93
+1jcugow,"Do you have have the print statement literally march “1 day is 86400 seconds”? 
+
+If that’s the case you’re failing because your print statement doesn’t match what it should be",-0.5106,Negative,0.0,0.102,0.898
+1jcugow,"It's always best to include the prompt with these kinds of questions. Obviously there are 86400 seconds in a day. My first guess at a glance is it wants you to print the statement ""x days is x\*86400 seconds"" for a specific amount of days. It seems like you already know how to print these mixed type statements, so maybe try the format I suggested. If that does not work, then submit the prompt and we can figure it out together.",0.7717,Positive,0.082,0.0,0.918
+1jcugow,"Does the course expect a formatted string as the answer? If so, check you haven't missed any punctuation, etc
+
+If it doesn't tell you what the output should be, then assume it's expecting the raw value",0.5086,Positive,0.115,0.0,0.885
+1jcugow,"Seconds in that many days:8640...
+
+day is 86400 seconds.
+
+Get someone to find the difference for you.  And then check your work, i.e. divide 8640 by day\*24\*60\*60.  Finally, print the number of day(s) entered as there are possible entry problems always.",-0.34,Negative,0.03,0.063,0.907
+1jcugow,"Missing a space after `days:`  
+  
+Edit:  
+It is often recommended here to copy the expected output directly from the exercise. So you don't miss such small things as spaces.",0.0792,Positive,0.114,0.072,0.814
+1jcugow,"I don't see an issue. When I run your code, unaltered, I get 86400. 
+
+Maybe something changed since you ran it?",0.0,Neutral,0.0,0.0,1.0
+1jcugow,It is not a human who is marking you its code. A human might give you marks for a near miss whilst a machine doesn’t. Coding should be precise so it is good that the marking is strict. Also employers will not be happy if you don’t follow their instructions right. Please don’t mark my grammar strictly.,0.2181,Positive,0.093,0.078,0.83
+1jcugow,"I'm doing the exact same course right now. Yeah, they are reeaaaaalllly picky on the output. And rightfully so - they have requirements and want them met exactly. 
+
+I started in 2022 and made it to part 6, I started again this year and am up to part 3. 
+
+It's a really good course! I have taken others on udemy and I really like how MOOC approaches the concepts and lessons.",0.8307,Positive,0.138,0.0,0.862
+1jczevx,You need to make it an f-string to do variable substitution. Your string literally contains `{game}` and not `1`.,0.0,Neutral,0.0,0.0,1.0
+1jcn17e,"    if text == ""java"" or ""c"":
+
+should be:
+
+    if text == ""java"" or text == ""c"":
+
+cause the former is:
+
+    if (text == ""java"") or ""c"":
+
+which is always truthy, as ""c"" is truthy.",0.0,Neutral,0.0,0.0,1.0
+1jcn17e,"This is in the FAQs  
+
+https://www.reddit.com/r/learnpython/wiki/faq#wiki_variable_is_one_of_two_choices.3F",0.0,Neutral,0.0,0.0,1.0
+1jcn17e,">if text == ""java"" or ""c"":
+
+English works that way, but Python grammar doesn't. You have to do the comparisons individually (if text == ""java"" or text == ""c""), or you need to use a different approach (if text in (""java"", ""c"")).
+
+The way you have it is interpreted as: if (text == ""java"") or (""c""). The standalone (""c"") is truthy because it's a non-null string, and <anything> or True results in True.",0.8126,Positive,0.097,0.0,0.903
+1jcc2ni,Build projects.,0.0,Neutral,0.0,0.0,1.0
+1jcc2ni,"Yeesh I felt like a beginner with python for at least a year or two, so you’re already ahead of my schedule 🙂
+
+Keep coding and it will come to you, eventually. But it takes time and dedicated effort. Good luck!",0.9312,Positive,0.296,0.0,0.704
+1jcc2ni,"Ok, here's a project that is a good start but a little tricky .
+
+Build a calculator. 
+
+It should allow the user to enter an expression, and give an answer. 
+
+First start with simple ones, like 25+56, 25\*56, 25/56, etc
+
+Then slightly complicated, like 10 factorial, 10\^5, log(10)
+
+Then with more operands. 25+56+10, 25+56-10, 25-56+10!
+
+Test it so it can handle divide by 0 errors
+
+If you want, then build a graphical user interface that looks like a calculator. 
+
+Then add scientific calculations, like sin, cosine, etc. 
+
+Add statistical functionality, like mean, median. 
+
+Add matrix operations. 
+
+Add ability to solve equations. Add ability to display equations as graphs. Keep going at it. 
+
+Build a fully fledged graphical calculator. 
+
+You will learn a lot doing this.",0.9614,Positive,0.226,0.067,0.707
+1jcc2ni,Are you a creative self driven type? Pick a project idea and start googling the python you need to learn to accomplish it. Also side bar has lots of learning resources for you if you are not so creative or self driven -> [https://reddit.com/r/learnpython/w/index](https://reddit.com/r/learnpython/w/index),0.8225,Positive,0.181,0.0,0.819
+1jcc2ni,"Build projects, it could be a website, maybe wrangling some data. Build a calculator or something.",0.0,Neutral,0.0,0.0,1.0
+1jcc2ni,"i started a week ago. 
+
+are there beginner level apps with full explanatory comments every step?  i think that would help me much more than easing through videos, and might help the OP, too.",0.7703,Positive,0.215,0.0,0.785
+1jcc2ni,Make a password manager. That will help you,0.4019,Positive,0.31,0.0,0.69
+1jcc2ni,"I started learning a few weeks ago and just found 100 Days of Code on Udemy, it’s brilliant! Great explanations with daily projects. Usually you can get it for under $20.",0.8478,Positive,0.233,0.0,0.767
+1jcc2ni,"So, I spent years doing different python coding classes and tutorials and stuff and finally had a bit of a breakthrough (for me) when I watched the free code camp pydew valley course (https://youtu.be/R9apl6B_ZgI?si=JrW5zPbH7sqreh5c)
+
+It was really helpful to understand how someone put together basically a hole program with bits and pieces and video games are interesting to me. 
+
+I think I pretty well understood most python concepts, but this helped me put together quite a few.",0.7715,Positive,0.132,0.0,0.868
+1jcc2ni,"Take CS50 P by harvard and while taking that course do projects.
+
+It can be anything. Start simple it can be hangman, guess the number etc and work your way up",0.0772,Positive,0.043,0.0,0.957
+1jcc2ni,Begin with the end in mind. What are you learning Python for?,0.0,Neutral,0.0,0.0,1.0
+1jcc2ni,"I've been learning python for about 6 months. Ive found that learning what the code does and the syntax isn't the hard bit, the hard bit is the challenges that the courses have at the end of each section. I've decided to try and find my own ways to learn how to use the code.",0.2244,Positive,0.071,0.0,0.929
+1jcc2ni,"There’s a video by ‘Tech with Tim’ - Learn Python with this one project.
+
+It helped me massively. I’m finding all ‘beginner projects’ and trying to solve them.. well, as independently as I can",0.4404,Positive,0.119,0.0,0.881
+1jcc2ni,How are you learning? Are you using chatgpt? 3 months isn’t long,0.0,Neutral,0.0,0.0,1.0
+1jcc2ni,Check out SoloLearn,0.0,Neutral,0.0,0.0,1.0
+1jcc2ni,"The MOOC Python course is amazing and a great foundation, free too.",0.9042,Positive,0.583,0.0,0.417
+1jcc2ni,Go to Project euler and start hammering out some questions.,0.0,Neutral,0.0,0.0,1.0
+1jcc2ni,"I think its completely normal keep going. Never forget languages are just tools to build software. Just keep building diversified projects. Do a web one, back end apis, serverless scripts this that you know. I am sure there are things you can build that will improve your life right now... Keep going, and always try to learn best practices and follow them. 1 last thing, never leave lint and style out, don't be lazy they are important...",0.9067,Positive,0.176,0.0,0.824
+1jcc2ni,"It’s a language. Besides that you need to learn coding. The question is how to achieve the outputs, the results, … based on inputs, actions etc..  Use flowcharts or uml diagrams and than look for the matching methods and commands.",0.0,Neutral,0.0,0.0,1.0
+1jcc2ni,"I learned by building a battle tech calculator and I had a rule that it had to be done with oo as that was something i struggled with at the time.
+
+Think of something you do in life and make a small program to do it for you or to make it easy and just build it and when you get stuck get on Google and look up that part your stuck with. You could even not use YouTube or something to make it harder.
+
+Once you figure out that one part you keep working
+
+The whole time do this without following a big tutorial or using AI and this helped me a ton and is what got me through all my coding classes in school",-0.6249,Negative,0.023,0.072,0.905
+1jcc2ni,"Do something with your existing coding knowledge that shall give you or someone other value. Solve a problem, bring joy or whatever.",0.6486,Positive,0.289,0.097,0.614
+1jcc2ni,"Reddit: r/LearnPython
+
+https://www.reddit.com/r/learnpython/about/
+
+https://reddit.com/r/learnpython/w/index
+
+https://reddit.com/r/learnpython/wiki/FAQ
+
+Here are some good ones.
+
+https://www.khanacademy.org/computing/intro-to-python-fundamentals
+
+https://www.freecodecamp.org/
+
+https://www.sololearn.com/en/
+
+https://www.coursera.org/professional-certificates/google-it-automation
+
+This one too 
+
+https://www.edx.org/learn/python/harvard-university-cs50-s-introduction-to-programming-with-python
+
+And
+
+https://automatetheboringstuff.com/#toc
+
+https://www.udemy.com/course/python-foundations-for-data-science-from-zero-to-data-analy/",0.4404,Positive,0.127,0.0,0.873
+1jcc2ni,"Ultimately most people are correct nothing will replace banging your head on an idea you actually want done.
+
+An example of something I've done as a noob/medium dev:
+
+Created a defibrilator locator (as in you give a location and it will point to the closest defibrilators (3 closest in this case)).
+
+Took me a few weekends to do it.
+
+Basically you need to break down what you want to do until you arrive to something you can do/can learn.",0.3818,Positive,0.06,0.0,0.94
+1jcc2ni,"I've been coding for over a year now and I still feel like an advanced beginner from time to time. One thing that started to discourage me early on was not remembering something that I hadn't used it a while. When I realized I wasn't the only one having those issues, it dawned on me I was better than I realized. The majority of the basics are second nature to me and now I just need to read the documentation for the Python module I'm importing and I""m good to go. 
+
+Long and short of what I'm saying is, don't get hung up on knowing or not knowing something. Focus on the basics, utilize them in projects, and get those down. Once you do, you'll be fine. Focus on small projects that might help you better understand things like for and while loops. Create menus using While loops. Create functions that can be used inside the while loop. Use if/else statements. try/except etc.",0.9559,Positive,0.143,0.016,0.84
+1jcc2ni,"I started just like this mind, i challenged myself to solve real world technical issues(i.e for e.g. reading data from api's , doing basic analysis on a dataframe, building basic http server, and then flask webserver, making a gui app etc.,)  from self research , understanding and reading and definitely writing the code, and testing it many times as it fails and until it works.  Now i think its easier to do this since chatGpt other llms came into existence because it was slightly difficult in the old times tinkering with just documentation and stackoverflow",0.5256,Positive,0.101,0.066,0.833
+1jcc2ni,"Go on Edx and subscribe to the CS50 Python course. Complete the lectures and attempt to complete and submit the problem set's for each week. You could blast through the first few weeks in a weekend, if not in 1 night. 
+
+They are well structured and get you accustomed to looking in the Python docs and understanding syntax. Also, David Malan is a beast.",-0.1531,Negative,0.033,0.042,0.925
+1jcc2ni,"The most effective way to improve is by creating small projects. Consider automating simple tasks, solving coding challenges (like LeetCode and CodeWars), or building basic applications such as a to-do list or a calculator. Hands-on practice will enhance your understanding.",0.8805,Positive,0.27,0.0,0.73
+1jcc2ni,"I've restarted/retried Python a number of times, unfortunately I get bored easily 😅
+
+If you're persisting, good on you 😊",0.2732,Positive,0.299,0.204,0.498
+1jcc2ni,"I was a hardcore coder when I was in class 10th when I went to class 11 for my jee preparation I coded all jee concepts into python, later solve my own question and find answer to it...",0.2023,Positive,0.053,0.0,0.947
+1jcygkx,"It sounds like you are trying to open a file called ""file.csv"", is that correct?
+
+The `import` statement is for adding python modules to your script to extend it's functionality, it does not open files.
+
+I would review this to learn more about opening and reading data from other files:  https://www.w3schools.com/python/python_file_open.asp",0.4939,Positive,0.082,0.0,0.918
+1jcxl5a,"It's a bit hard to follow, you say the output of this code but this code only defines a function, it does not run it. So this code has no output.
+
+You then say print(fun()) outputs ""hello8"" (without a newline?), that does not sound right. They should be on different lines.
+
+I think therefore your question is why does the hello and the 8 appear on different lines? The answer is simply that print() inserts a newline at the end. So the first print (of ""hello"") ends the line, so when fun() returns and it prints 8, that is on a new line.",-0.5204,Negative,0.0,0.044,0.956
+1jcx93d,">File ""C:\Users\Atten\PycharmProjects\TextadventurePython\src\python_game\Game.py"", line 26, in __init__
+
+    self.game.iconphoto(True, self.icon) # adds the icon
+
+What are you trying to do here?  And game is in the following code but makes no sense, nor does MainMenu.mainMenu.  Obviously there has been no testing done, so that is where you should start i.e. **Why** doesn't the program run.
+
+    def start(self):
+        MainMenu.mainMenu
+        game",-0.6808,Negative,0.0,0.094,0.906
+1jcx93d,"> self.icon = PhotoImage(file='Resources/emo_ass_icon.png')
+
+Try using an absolute path when initializing PhotoImage.",0.0,Neutral,0.0,0.0,1.0
+1jcx93d,">_tkinter.TclError: can't use ""pyimage2"" as iconphoto: not a photo image
+
+PhotoImage will do gif and pgm files only AFAIK.  Try pillow / PIL.  I always use PIL because it handles most image formats.",0.0,Neutral,0.0,0.0,1.0
+1jclbua,You run PCA and you get your components. Then you use these components as features for an appropriate model.,0.0,Neutral,0.0,0.0,1.0
+1jcu0ss,"what you mean ""store values in a function""?",0.4019,Positive,0.31,0.0,0.69
+1jcu0ss,"This sounds like an XY problem because, while all the words in your question are programming-related, they make no sense together. What are you actually trying to accomplish? ""That stores values in a function"" is a *solution*, not a problem. What problem are you trying to solve with it?
+
+What is a ""dictionary login system""? Are you writing a dictionary app and need to build a login system? Are you building a login system and want to store data in a dictionary?
+
+for the most part, I think you should attempt to solve the problem on your own, and then ask for help when you hit a problem *by including your code*. It's almost impossible to give specific advice without specific code as every rule or approach will depend on the situation.",-0.4696,Negative,0.11,0.118,0.772
+1jcu0ss,"You can add attributes to a function and store data references, as below, but this is **very unusual**.
+
+    def myfunc(name):
+        print(f""Hello {name}"")
+        if hasattr(myfunc, ""names""):
+            myfunc.names.append(name)  # could be a dict instead
+        else:
+            myfunc.names = [name]
+    
+    
+    while True:
+        name = input(""Enter your name: (return to finish) "")
+        if not name:
+            break
+        myfunc(name)
+    
+    print('Names: ', end="""")
+    try:
+        print(*myfunc.names, sep="", "")
+    except AttributeError:
+        print(""No names were entered"")
+
+However, whilst your programme is running, it can store data that is available to a function easily. You can create an empty dictionary outside of the function but update it in a function.
+
+If you need to store data between runs, you need to save to a file or database.",0.9109,Positive,0.117,0.019,0.865
+1jcsxo7,"*edit Yes, I did some digging and both of those certifications are offered from Google direct. That would be my personal recommendation 
+
+Also I failed to mention that I too had to move to attend a college 👍 
+
+I personally have signed up for one of these with a different name and paid a similar amount. I won't say which one in case others have had more luck then me
+
+Ya, I REGRET it. I was working as an intern and learned a fraction of what I thought I would. Ended up re-enrolling in college and graduating with an Associate's degree
+
+So is it a scam? I would say some people would say yes, it is a scam. However, others would tell you it is not 🤷
+
+This is just my opinion. You need ACCREDITED courses my friend. If the credits transfer to a local college or university, you're golden 👌
+
+I know two guys who took a single class in college who both got certifications afterwards. They are both still employed and that was a decade ago 
+
+IMHO you'd be better off learning on your own through books etc. and using that knowledge to gain real world experience. It's a lot cheaper too
+
+You can always test afterwards for certifications once you learn. Doesn't Google offer that certificate directly from them?",0.6477,Positive,0.094,0.066,0.839
